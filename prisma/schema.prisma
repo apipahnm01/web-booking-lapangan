@@ -1,0 +1,97 @@
+// Prisma Schema - Sistem Booking Lapangan Futsal & Badminton
+// Database: MySQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Tabel users (admin only - tidak untuk customer)
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+// Tabel courts (lapangan)
+model Court {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  sport        String   @db.VarChar(20)
+  pricePerHour Int
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  bookings     Booking[]
+
+  @@map("courts")
+}
+
+// Tabel bookings (pemesanan)
+model Booking {
+  id            Int       @id @default(autoincrement())
+  token         String    @unique
+  courtId       Int
+  customerName  String    @db.VarChar(100)
+  customerPhone String    @db.VarChar(20)
+  customerEmail String?   @db.VarChar(100)
+  date          String    @db.VarChar(10)
+  startTime     String    @db.VarChar(5)
+  endTime       String    @db.VarChar(5)
+  duration      Int
+  totalPrice    Int
+  status        String    @default("pending") @db.VarChar(20)
+  paymentMethod String    @db.VarChar(50)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  court         Court     @relation(fields: [courtId], references: [id])
+  payment       Payment?
+  checkin       CheckIn?
+
+  @@unique([courtId, date, startTime], name: "unique_slot_idx")
+  @@map("bookings")
+}
+
+// Tabel payments (pembayaran)
+model Payment {
+  id          Int      @id @default(autoincrement())
+  bookingId   Int      @unique
+  bookingToken String  @db.VarChar(20)
+  amount      Int
+  method      String   @db.VarChar(50)
+  status      String   @default("pending") @db.VarChar(20)
+  createdAt   DateTime @default(now())
+
+  booking     Booking  @relation(fields: [bookingId], references: [id])
+
+  @@map("payments")
+}
+
+// Tabel checkins (check-in customer)
+model CheckIn {
+  id            Int      @id @default(autoincrement())
+  bookingId     Int      @unique
+  bookingToken  String   @db.VarChar(20)
+  customerName  String   @db.VarChar(100)
+  courtName     String   @db.VarChar(50)
+  sport         String   @db.VarChar(20)
+  date          String   @db.VarChar(10)
+  startTime     String   @db.VarChar(5)
+  endTime       String   @db.VarChar(5)
+  checkedInAt   DateTime @default(now())
+
+  booking       Booking  @relation(fields: [bookingId], references: [id])
+
+  @@map("checkins")
+}
