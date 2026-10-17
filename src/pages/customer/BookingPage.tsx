@@ -135,7 +135,7 @@ export default function BookingPage() {
             <Check className="w-8 h-8 text-brand-400" />
           </div>
           <h2 className="text-2xl font-display font-bold text-white mb-2">Booking Berhasil!</h2>
-          <p className="text-white/50 mb-6">Simpan kode booking & QR Code berikut. Status booking mengikuti metode pembayaran yang dipilih.</p>
+          <p className="text-white/50 mb-6">Booking berhasil dibuat dan tersimpan. Status awal masih menunggu pembayaran sampai admin mengonfirmasi uang diterima. QR ini baru bisa dipakai untuk check-in setelah status lunas.</p>
 
           <div className="bg-navy-700/50 rounded-xl p-6 mb-6">
             <p className="text-sm text-white/50 mb-1">Kode Booking</p>
