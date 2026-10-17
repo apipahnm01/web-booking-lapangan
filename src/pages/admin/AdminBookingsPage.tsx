@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { supabase } from '@/lib/supabase';
 import { formatRupiah, exportToCSV } from '@/lib/store';
 import { ClipboardList, Search, Check, Clock, Ban, Download, RefreshCw } from 'lucide-react';
 
@@ -35,27 +34,19 @@ export default function AdminBookingsPage() {
   const [error, setError] = useState('');
 
   const loadBookings = useCallback(async () => {
-    if (!supabase) {
-      setError('Konfigurasi Supabase belum tersedia.');
-      setLoading(false);
-      return;
-    }
     setLoading(true);
     setError('');
-    const { data, error: queryError } = await supabase
-      .from('bookings')
-      .select('id, token, court_name, customer_name, customer_phone, customer_email, booking_date, start_time, end_time, duration, total_price, status, payment_method, created_at')
-      .order('created_at', { ascending: false });
-
-    if (queryError) {
-      setError(queryError.message.includes('permission') || queryError.message.includes('policy')
-        ? 'Akses admin belum diaktifkan. Pastikan akun Supabase memiliki role admin.'
-        : queryError.message);
+    try {
+      const response = await fetch('/api/admin/bookings', { credentials: 'same-origin' });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Data booking gagal dimuat.');
+      setBookings((result.data ?? []) as BookingRow[]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Data booking gagal dimuat.');
       setBookings([]);
-    } else {
-      setBookings((data ?? []) as BookingRow[]);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   useEffect(() => { void loadBookings(); }, [loadBookings]);
@@ -71,10 +62,16 @@ export default function AdminBookingsPage() {
   }), [bookings, search, filterStatus]);
 
   async function handleCancel(id: string) {
-    if (!supabase || !confirm('Batalkan booking ini?')) return;
-    const { error: updateError } = await supabase.from('bookings').update({ status: 'cancelled' }).eq('id', id);
-    if (updateError) {
-      alert('Booking belum berhasil dibatalkan: ' + updateError.message);
+    if (!confirm('Batalkan booking ini?')) return;
+    const response = await fetch('/api/admin/bookings', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ id, status: 'cancelled' }),
+    });
+    const result = await response.json();
+    if (!response.ok) {
+      alert('Booking belum berhasil dibatalkan: ' + (result.error || 'Terjadi kesalahan.'));
       return;
     }
     await loadBookings();
