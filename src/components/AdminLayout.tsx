@@ -4,7 +4,6 @@ import {
   CreditCard, ScanLine, CheckSquare, FileBarChart, LogOut, Dumbbell, Menu, X,
 } from 'lucide-react';
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
 
 const NAV_ITEMS = [
   { to: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -26,8 +25,8 @@ export default function AdminLayout() {
   const isActive = (path: string) => location.pathname === path;
 
   async function handleLogout() {
-    if (supabase) await supabase.auth.signOut();
-    navigate('/admin/login');
+    await fetch('/api/admin/login', { method: 'DELETE', credentials: 'same-origin' });
+    navigate('/admin/login', { replace: true });
   }
 
   const navContent = (
