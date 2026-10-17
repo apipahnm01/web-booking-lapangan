@@ -2,7 +2,8 @@ import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Dumbbell, Calendar, Clock, ChevronRight, ChevronLeft, Check, X, User, Phone, Mail, CreditCard, Loader2 } from 'lucide-react';
 import { COURTS, TIME_SLOTS, PAYMENT_METHODS } from '@/lib/constants';
-import { getBookedSlots, createBooking, createPayment, updateBookingStatus, calculatePrice, formatRupiah, formatDate } from '@/lib/store';
+import { calculatePrice, formatRupiah, formatDate } from '@/lib/store';
+import { supabase } from '@/lib/supabase';
 import type { SportType, Booking } from '@/lib/types';
 import QRCodeDisplay from '@/components/QRCodeDisplay';
 
@@ -41,9 +42,24 @@ export default function BookingPage() {
     return COURTS.filter(c => c.sport === sport);
   }, [sport]);
 
-  const bookedSlots = useMemo(() => {
-    if (!courtId || !date) return [];
-    return getBookedSlots(courtId, date);
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    async function loadBookedSlots() {
+      if (!courtId || !date || !supabase) { setBookedSlots([]); return; }
+      const { data, error } = await supabase.rpc('get_booked_slots', { p_court_id: courtId, p_date: date });
+      if (!active) return;
+      if (error) { setError('Jadwal belum dapat dimuat. Coba muat ulang halaman.'); setBookedSlots([]); return; }
+      const busy = new Set<string>();
+      for (const row of data ?? []) {
+        const start = TIME_SLOTS.indexOf(String(row.start_time).slice(0,5));
+        for (let i = 0; i < Number(row.duration); i++) if (start >= 0 && TIME_SLOTS[start+i]) busy.add(TIME_SLOTS[start+i]);
+      }
+      setBookedSlots([...busy]);
+    }
+    void loadBookedSlots();
+    return () => { active = false; };
   }, [courtId, date]);
 
   const selectedCourt = useMemo(() => COURTS.find(c => c.id === courtId), [courtId]);
@@ -58,41 +74,41 @@ export default function BookingPage() {
   ];
   const currentStepIdx = steps.findIndex(s => s.key === step);
 
-  function handleProcessPayment() {
+  async function handleProcessPayment() {
     if (!selectedCourt || !sport) return;
+    if (!supabase) { setError('Koneksi database belum dikonfigurasi.'); return; }
     setProcessing(true);
     setError('');
-    setTimeout(() => {
-      try {
-        const endTimeSlot = TIME_SLOTS[TIME_SLOTS.indexOf(startTime) + duration];
-        const newBooking = createBooking({
-          courtId,
-          courtName: selectedCourt.name,
-          sport,
-          customerName: name,
-          customerPhone: phone,
-          customerEmail: email,
-          date,
-          startTime,
-          endTime: endTimeSlot,
-          duration,
-          totalPrice,
-          paymentMethod,
-        });
-        createPayment({
-          bookingId: newBooking.id,
-          bookingToken: newBooking.token,
-          amount: totalPrice,
-          method: paymentMethod,
-        });
-        updateBookingStatus(newBooking.id, 'paid');
-        setBooking({ ...newBooking, status: 'paid' });
-        setStep('result');
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Terjadi kesalahan');
+    try {
+      const { data, error: bookingError } = await supabase.rpc('create_customer_booking', {
+        p_court_id: courtId,
+        p_sport: sport,
+        p_customer_name: name,
+        p_customer_phone: phone,
+        p_customer_email: email,
+        p_booking_date: date,
+        p_start_time: startTime,
+        p_duration: duration,
+        p_total_price: totalPrice,
+        p_payment_method: paymentMethod,
+      });
+      if (bookingError) throw new Error(bookingError.message.includes('Slot ini sudah dipesan') ? 'Slot ini sudah dipesan. Silakan pilih jam lain.' : bookingError.message);
+      setBooking(data as Booking);
+      setStep('result');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Booking gagal disimpan. Silakan coba lagi.');
+      if (courtId && date) {
+        const { data } = await supabase.rpc('get_booked_slots', { p_court_id: courtId, p_date: date });
+        const busy = new Set<string>();
+        for (const row of data ?? []) {
+          const start = TIME_SLOTS.indexOf(String(row.start_time).slice(0,5));
+          for (let i = 0; i < Number(row.duration); i++) if (start >= 0 && TIME_SLOTS[start+i]) busy.add(TIME_SLOTS[start+i]);
+        }
+        setBookedSlots([...busy]);
       }
+    } finally {
       setProcessing(false);
-    }, 1500);
+    }
   }
 
   function resetBooking() {
@@ -119,7 +135,7 @@ export default function BookingPage() {
             <Check className="w-8 h-8 text-brand-400" />
           </div>
           <h2 className="text-2xl font-display font-bold text-white mb-2">Booking Berhasil!</h2>
-          <p className="text-white/50 mb-6">Simpan kode booking & QR Code berikut untuk check-in.</p>
+          <p className="text-white/50 mb-6">Simpan kode booking & QR Code berikut. Status booking mengikuti metode pembayaran yang dipilih.</p>
 
           <div className="bg-navy-700/50 rounded-xl p-6 mb-6">
             <p className="text-sm text-white/50 mb-1">Kode Booking</p>
