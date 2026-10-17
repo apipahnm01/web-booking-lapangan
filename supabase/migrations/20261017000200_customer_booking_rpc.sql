@@ -51,13 +51,13 @@ begin
     v_id,v_token,v_court.id,v_court.name,p_sport,trim(p_customer_name),
     regexp_replace(trim(p_customer_phone),'[^0-9+]','','g'),nullif(trim(coalesce(p_customer_email,'')),''),
     p_booking_date,p_start_time,v_end_time,p_duration,p_total_price,
-    case when p_payment_method='cash' then 'pending' else 'paid' end,p_payment_method
+    'pending',p_payment_method
   ) returning * into v_booking;
 
   insert into public.payments(id,booking_id,booking_token,amount,method,status)
   values(
     'p-' || gen_random_uuid()::text,v_id,v_token,p_total_price,p_payment_method,
-    case when p_payment_method='cash' then 'pending' else 'success' end
+    'pending'
   );
   return jsonb_build_object(
     'id',v_booking.id,'token',v_booking.token,'courtId',v_booking.court_id,'courtName',v_booking.court_name,
