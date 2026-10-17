@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Search, Ticket, Calendar, Clock, MapPin, User, Phone, Mail, CheckCircle2, AlertCircle, Download } from 'lucide-react';
-import { getBookingByTokenAndPhone, formatRupiah, formatDate } from '@/lib/store';
+import { formatRupiah, formatDate } from '@/lib/store';
 import type { Booking } from '@/lib/types';
 import QRCodeDisplay from '@/components/QRCodeDisplay';
+import { supabase } from '@/lib/supabase';
 
 export default function CheckBookingPage() {
   const [token, setToken] = useState('');
@@ -10,12 +11,23 @@ export default function CheckBookingPage() {
   const [result, setResult] = useState<Booking | null | 'not_found'>(null);
   const [searched, setSearched] = useState(false);
 
-  function handleSearch(e: React.FormEvent) {
+  async function handleSearch(e: React.FormEvent) {
     e.preventDefault();
-    if (!token.trim() || !phone.trim()) return;
-    const booking = getBookingByTokenAndPhone(token, phone);
-    setResult(booking || 'not_found');
-    setSearched(true);
+    if (!token.trim() || !phone.trim() || !supabase) return;
+    setSearched(false);
+    setResult(null);
+    try {
+      const { data, error } = await supabase.rpc('lookup_customer_booking', {
+        p_token: token.trim(),
+        p_phone: phone.trim(),
+      });
+      if (error) throw error;
+      setResult((data as Booking | null) || 'not_found');
+    } catch {
+      setResult('not_found');
+    } finally {
+      setSearched(true);
+    }
   }
 
   function downloadQR(b: Booking) {
