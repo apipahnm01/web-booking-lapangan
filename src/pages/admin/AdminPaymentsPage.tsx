@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { supabase } from '@/lib/supabase';
 import { formatRupiah, exportToCSV } from '@/lib/store';
 import { CreditCard, Download, CheckCircle2, XCircle, Clock, RefreshCw } from 'lucide-react';
 
@@ -28,27 +27,19 @@ export default function AdminPaymentsPage() {
   const [error, setError] = useState('');
 
   const loadPayments = useCallback(async () => {
-    if (!supabase) {
-      setError('Konfigurasi Supabase belum tersedia.');
-      setLoading(false);
-      return;
-    }
     setLoading(true);
     setError('');
-    const { data, error: queryError } = await supabase
-      .from('payments')
-      .select('id, booking_id, booking_token, amount, method, status, created_at')
-      .order('created_at', { ascending: false });
-
-    if (queryError) {
-      setError(queryError.message.includes('permission') || queryError.message.includes('policy')
-        ? 'Akses admin belum aktif. Pastikan akun Supabase memiliki role admin.'
-        : queryError.message);
+    try {
+      const response = await fetch('/api/admin/payments', { credentials: 'same-origin' });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Data pembayaran gagal dimuat.');
+      setPayments((result.data ?? []) as PaymentRow[]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Data pembayaran gagal dimuat.');
       setPayments([]);
-    } else {
-      setPayments((data ?? []) as PaymentRow[]);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   useEffect(() => { void loadPayments(); }, [loadPayments]);
@@ -62,19 +53,29 @@ export default function AdminPaymentsPage() {
   const pending = payments.filter(p => p.status === 'pending').length;
 
   async function confirmPayment(payment: PaymentRow) {
-    if (!supabase || busyId) return;
+    if (busyId) return;
     const approved = confirm(
       'Pastikan pembayaran untuk booking ' + payment.booking_token + ' benar-benar sudah diterima. Konfirmasi sebagai TERBAYAR?'
     );
     if (!approved) return;
 
     setBusyId(payment.id);
-    const { error: confirmError } = await supabase.rpc('admin_confirm_payment', {
-      p_booking_id: payment.booking_id,
-    });
+    let confirmError = '';
+    try {
+      const response = await fetch('/api/admin/confirm-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ booking_id: payment.booking_id }),
+      });
+      const result = await response.json();
+      if (!response.ok) confirmError = result.error || 'Terjadi kesalahan.';
+    } catch {
+      confirmError = 'Tidak dapat terhubung ke server.';
+    }
     setBusyId('');
     if (confirmError) {
-      alert('Pembayaran belum berhasil dikonfirmasi: ' + confirmError.message);
+      alert('Pembayaran belum berhasil dikonfirmasi: ' + confirmError);
       return;
     }
     await loadPayments();
