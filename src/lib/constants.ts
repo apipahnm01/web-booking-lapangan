@@ -3,11 +3,11 @@ import type { Court } from './types';
 export const ADMIN_ACCESS_CODE = '202520';
 
 export const COURTS: Court[] = [
-  { id: 'c-futsal-1', name: 'Futsal 1', sport: 'futsal', pricePerHour: 150000 },
-  { id: 'c-badminton-1', name: 'Badminton 1', sport: 'badminton', pricePerHour: 50000 },
-  { id: 'c-badminton-2', name: 'Badminton 2', sport: 'badminton', pricePerHour: 50000 },
-  { id: 'c-badminton-3', name: 'Badminton 3', sport: 'badminton', pricePerHour: 50000 },
-  { id: 'c-badminton-4', name: 'Badminton 4', sport: 'badminton', pricePerHour: 50000 },
+  { id: 'futsal-1', name: 'Futsal 1', sport: 'futsal', pricePerHour: 150000 },
+  { id: 'badminton-1', name: 'Badminton 1', sport: 'badminton', pricePerHour: 50000 },
+  { id: 'badminton-2', name: 'Badminton 2', sport: 'badminton', pricePerHour: 50000 },
+  { id: 'badminton-3', name: 'Badminton 3', sport: 'badminton', pricePerHour: 50000 },
+  { id: 'badminton-4', name: 'Badminton 4', sport: 'badminton', pricePerHour: 50000 },
 ];
 
 export const TIME_SLOTS: string[] = [
