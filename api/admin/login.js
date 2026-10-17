@@ -1,8 +1,7 @@
-import { issueSession, setSessionCookie, clearSessionCookie } from './_auth.js';
+import { issueSession, setSessionCookie, clearSessionCookie, hasAdminSession } from './_auth.js';
 
 export default function handler(req, res) {
   if (req.method === 'GET') {
-    const { hasAdminSession } = require('./_auth.js');
     return res.status(200).json({ authenticated: hasAdminSession(req) });
   }
   if (req.method === 'DELETE') {
