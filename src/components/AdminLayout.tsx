@@ -4,6 +4,7 @@ import {
   CreditCard, ScanLine, CheckSquare, FileBarChart, LogOut, Dumbbell, Menu, X,
 } from 'lucide-react';
 import { useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
 const NAV_ITEMS = [
   { to: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
