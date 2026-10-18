@@ -25,28 +25,28 @@ export default function App() {
         <Route path="/login" element={<GoogleLoginPage />} />
         <Route path="/admin/login" element={<AdminLoginPage />} />
 
-        <Route element={<RequireAuth />}>
-          <Route element={<CustomerLayout />}>
-            <Route path="/" element={<HomePage />} />
+        <Route element={<CustomerLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/cek-booking" element={<CheckBookingPage />} />
+          <Route element={<RequireAuth />}>
             <Route path="/booking" element={<BookingPage />} />
-            <Route path="/cek-booking" element={<CheckBookingPage />} />
-          </Route>
-
-          <Route element={<AdminGuard />}>
-            <Route element={<AdminLayout />}>
-              <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
-              <Route path="/admin/lapangan" element={<AdminCourtsPage />} />
-              <Route path="/admin/jadwal" element={<AdminSchedulePage />} />
-              <Route path="/admin/booking" element={<AdminBookingsPage />} />
-              <Route path="/admin/customer" element={<AdminCustomersPage />} />
-              <Route path="/admin/pembayaran" element={<AdminPaymentsPage />} />
-              <Route path="/admin/scan" element={<AdminScanPage />} />
-              <Route path="/admin/check-in" element={<AdminCheckInsPage />} />
-              <Route path="/admin/laporan" element={<AdminReportsPage />} />
-            </Route>
           </Route>
         </Route>
-        <Route path="*" element={<Navigate to="/login" replace />} />
+
+        <Route element={<AdminGuard />}>
+          <Route element={<AdminLayout />}>
+            <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+            <Route path="/admin/lapangan" element={<AdminCourtsPage />} />
+            <Route path="/admin/jadwal" element={<AdminSchedulePage />} />
+            <Route path="/admin/booking" element={<AdminBookingsPage />} />
+            <Route path="/admin/customer" element={<AdminCustomersPage />} />
+            <Route path="/admin/pembayaran" element={<AdminPaymentsPage />} />
+            <Route path="/admin/scan" element={<AdminScanPage />} />
+            <Route path="/admin/check-in" element={<AdminCheckInsPage />} />
+            <Route path="/admin/laporan" element={<AdminReportsPage />} />
+          </Route>
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
