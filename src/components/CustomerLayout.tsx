@@ -1,13 +1,50 @@
+import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Search, Shield, Dumbbell, LogOut } from 'lucide-react';
+import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 
 export default function CustomerLayout() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [session, setSession] = useState<Session | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!supabase) return;
+    let active = true;
+    async function checkAdmin(nextSession: Session | null) {
+      if (active) {
+        setSession(nextSession);
+        setIsAdmin(false);
+      }
+      if (!nextSession) return;
+      try {
+        const response = await fetch('/api/admin/login', {
+          headers: { Authorization: `Bearer ${nextSession.access_token}` },
+          credentials: 'same-origin',
+        });
+        const result = await response.json();
+        if (active) setIsAdmin(response.ok && result.isAdmin === true);
+      } catch {
+        if (active) setIsAdmin(false);
+      }
+    }
+    void supabase.auth.getSession().then(({ data }) => checkAdmin(data.session));
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      void checkAdmin(nextSession);
+    });
+    return () => {
+      active = false;
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
   async function handleLogout() {
     await supabase?.auth.signOut();
-    navigate('/login', { replace: true });
+    setSession(null);
+    setIsAdmin(false);
+    navigate('/', { replace: true });
   }
 
   return (
@@ -41,21 +78,25 @@ export default function CustomerLayout() {
               <Search className="w-4 h-4" />
               <span className="hidden sm:inline">Cek Booking</span>
             </Link>
-            <button
-              type="button"
-              onClick={() => void handleLogout()}
-              className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
-            >
-              <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Keluar</span>
-            </button>
-            <Link
-              to="/admin/login"
-              className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
-            >
-              <Shield className="w-4 h-4" />
-              <span className="hidden sm:inline">Admin</span>
-            </Link>
+            {isAdmin && (
+              <Link
+                to="/admin/dashboard"
+                className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
+              >
+                <Shield className="w-4 h-4" />
+                <span className="hidden sm:inline">Admin</span>
+              </Link>
+            )}
+            {session && (
+              <button
+                type="button"
+                onClick={() => void handleLogout()}
+                className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
+              >
+                <LogOut className="w-4 h-4" />
+                <span className="hidden sm:inline">Keluar</span>
+              </button>
+            )}
           </nav>
         </div>
       </header>
