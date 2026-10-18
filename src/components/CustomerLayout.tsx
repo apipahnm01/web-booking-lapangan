@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Search, Shield, Dumbbell, LogOut } from 'lucide-react';
+import { Home, Search, Shield, Dumbbell, LogOut, LogIn } from 'lucide-react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 
@@ -9,6 +9,15 @@ export default function CustomerLayout() {
   const navigate = useNavigate();
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const displayName = (() => {
+    const metadata = session?.user.user_metadata || {};
+    const fullName = metadata.full_name || metadata.name || metadata.display_name;
+    const name = typeof fullName === 'string' ? fullName.trim() : '';
+    if (name) return name.split(/\s+/)[0];
+    const email = session?.user.email || '';
+    return email.includes('@') ? email.split('@')[0] : 'Pengguna';
+  })();
 
   useEffect(() => {
     if (!supabase) return;
@@ -50,8 +59,8 @@ export default function CustomerLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-navy-800">
       <header className="sticky top-0 z-40 bg-navy-900/90 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5">
+        <div className="max-w-5xl mx-auto px-4 min-h-16 py-2 flex items-center justify-between gap-2">
+          <Link to="/" className="flex items-center gap-2.5 shrink-0">
             <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center">
               <Dumbbell className="w-5 h-5 text-white" />
             </div>
@@ -59,7 +68,7 @@ export default function CustomerLayout() {
               Sport<span className="text-brand-400">Futsal</span>
             </span>
           </Link>
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center justify-end gap-1 flex-wrap">
             <Link
               to="/"
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
@@ -67,7 +76,7 @@ export default function CustomerLayout() {
               }`}
             >
               <Home className="w-4 h-4" />
-              <span className="hidden sm:inline">Beranda</span>
+              <span>Beranda</span>
             </Link>
             <Link
               to="/cek-booking"
@@ -84,18 +93,31 @@ export default function CustomerLayout() {
                 className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
               >
                 <Shield className="w-4 h-4" />
-                <span className="hidden sm:inline">Admin</span>
+                <span>Admin</span>
               </Link>
             )}
-            {session && (
-              <button
-                type="button"
-                onClick={() => void handleLogout()}
-                className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
+            {session ? (
+              <>
+                <span className="px-2 py-2 text-sm font-semibold text-brand-300 whitespace-nowrap">
+                  Hi, {displayName}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => void handleLogout()}
+                  className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Keluar</span>
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="px-3 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5 bg-brand-500 text-white hover:bg-brand-400"
               >
-                <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline">Keluar</span>
-              </button>
+                <LogIn className="w-4 h-4" />
+                <span>Login</span>
+              </Link>
             )}
           </nav>
         </div>
