@@ -1,8 +1,14 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Home, Search, Shield, Dumbbell } from 'lucide-react';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Home, Search, Shield, Dumbbell, LogOut } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export default function CustomerLayout() {
   const location = useLocation();
+  const navigate = useNavigate();
+  async function handleLogout() {
+    await supabase?.auth.signOut();
+    navigate('/login', { replace: true });
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-navy-800">
@@ -35,6 +41,14 @@ export default function CustomerLayout() {
               <Search className="w-4 h-4" />
               <span className="hidden sm:inline">Cek Booking</span>
             </Link>
+            <button
+              type="button"
+              onClick={() => void handleLogout()}
+              className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline">Keluar</span>
+            </button>
             <Link
               to="/admin/login"
               className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
