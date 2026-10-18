@@ -39,8 +39,7 @@ export default function GoogleLoginPage() {
       if (active) navigate(isAdmin ? (destination.startsWith('/admin') ? destination : (isAdminPath ? '/admin/dashboard' : '/')) : (destination.startsWith('/admin') ? '/' : destination), { replace: true });
     }
     void finishLogin().catch(err => { if (active) setError(err instanceof Error ? err.message : 'Login gagal.'); });
-    const { data: listener } = supabase?.auth.onAuthStateChange(() => { void finishLogin(); }) ?? { data: { subscription: { unsubscribe() {} } } };
-    return () => { active = false; listener.subscription.unsubscribe(); };
+    return () => { active = false; };
   }, [navigate, isAdminPath, destination]);
 
   async function signIn() {
