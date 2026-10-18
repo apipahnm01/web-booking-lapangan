@@ -36,7 +36,7 @@ export default function GoogleLoginPage() {
           return;
         }
       }
-      if (active) navigate(isAdmin ? (isAdminPath ? destination : '/') : (destination.startsWith('/admin') ? '/' : destination), { replace: true });
+      if (active) navigate(isAdmin ? (destination.startsWith('/admin') ? destination : (isAdminPath ? '/admin/dashboard' : '/')) : (destination.startsWith('/admin') ? '/' : destination), { replace: true });
     }
     void finishLogin().catch(err => { if (active) setError(err instanceof Error ? err.message : 'Login gagal.'); });
     const { data: listener } = supabase?.auth.onAuthStateChange(() => { void finishLogin(); }) ?? { data: { subscription: { unsubscribe() {} } } };
