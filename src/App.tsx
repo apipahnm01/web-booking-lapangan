@@ -1,6 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import CustomerLayout from '@/components/CustomerLayout';
 import AdminLayout from '@/components/AdminLayout';
+import RequireAuth from '@/components/RequireAuth';
+import GoogleLoginPage from '@/pages/GoogleLoginPage';
 import HomePage from '@/pages/customer/HomePage';
 import BookingPage from '@/pages/customer/BookingPage';
 import CheckBookingPage from '@/pages/customer/CheckBookingPage';
@@ -20,35 +22,31 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Customer routes */}
-        <Route element={<CustomerLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/booking" element={<BookingPage />} />
-          <Route path="/cek-booking" element={<CheckBookingPage />} />
-        </Route>
-
-        {/* Admin login */}
+        <Route path="/login" element={<GoogleLoginPage />} />
         <Route path="/admin/login" element={<AdminLoginPage />} />
 
-        {/* Admin protected routes */}
-        <Route element={<AdminGuard />}>
-          <Route element={<AdminLayout />}>
-            <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
-            <Route path="/admin/lapangan" element={<AdminCourtsPage />} />
-            <Route path="/admin/jadwal" element={<AdminSchedulePage />} />
-            <Route path="/admin/booking" element={<AdminBookingsPage />} />
-            <Route path="/admin/customer" element={<AdminCustomersPage />} />
-            <Route path="/admin/pembayaran" element={<AdminPaymentsPage />} />
-            <Route path="/admin/scan" element={<AdminScanPage />} />
-            <Route path="/admin/check-in" element={<AdminCheckInsPage />} />
-            <Route path="/admin/laporan" element={<AdminReportsPage />} />
+        <Route element={<RequireAuth />}>
+          <Route element={<CustomerLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/booking" element={<BookingPage />} />
+            <Route path="/cek-booking" element={<CheckBookingPage />} />
+          </Route>
+
+          <Route element={<AdminGuard />}>
+            <Route element={<AdminLayout />}>
+              <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+              <Route path="/admin/lapangan" element={<AdminCourtsPage />} />
+              <Route path="/admin/jadwal" element={<AdminSchedulePage />} />
+              <Route path="/admin/booking" element={<AdminBookingsPage />} />
+              <Route path="/admin/customer" element={<AdminCustomersPage />} />
+              <Route path="/admin/pembayaran" element={<AdminPaymentsPage />} />
+              <Route path="/admin/scan" element={<AdminScanPage />} />
+              <Route path="/admin/check-in" element={<AdminCheckInsPage />} />
+              <Route path="/admin/laporan" element={<AdminReportsPage />} />
+            </Route>
           </Route>
         </Route>
-
-        {/* Fallback */}
-        <Route path="*" element={<CustomerLayout />}>
-          <Route path="*" element={<HomePage />} />
-        </Route>
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
   );
