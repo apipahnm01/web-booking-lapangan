@@ -27,6 +27,7 @@ export default function AdminLayout() {
 
   async function handleLogout() {
     await fetch('/api/admin/login', { method: 'DELETE', credentials: 'same-origin' });
+    await supabase?.auth.signOut();
     navigate('/admin/login', { replace: true });
   }
 
