@@ -45,39 +45,35 @@ export default function BookingPage() {
     return slotTime.getTime() <= Date.now();
   }
 
-  async function downloadBookingQR() {
+  function downloadBookingQR() {
     const qrImage = document.querySelector<HTMLImageElement>('img[alt="QR Code"]');
     if (!qrImage?.src) return;
 
     const fileName = `QR-${booking?.token || 'booking'}.png`;
     try {
-      // iPhone/iPad: open the native share sheet so the user can choose
-      // "Save Image" and place the QR directly in Photos.
-      const response = await fetch(qrImage.src);
-      const blob = await response.blob();
-      const file = new File([blob], fileName, { type: 'image/png' });
+      // Build the PNG file synchronously so iOS still recognizes this
+      // call as a direct tap by the user (required for the share sheet).
+      const base64 = qrImage.src.split(',')[1];
+      if (!base64) throw new Error('QR image data is unavailable');
+      const binary = window.atob(base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const file = new File([bytes], fileName, { type: 'image/png' });
 
-      if (navigator.canShare?.({ files: [file] }) && navigator.share) {
-        await navigator.share({ files: [file], title: 'QR Booking Lapangan' });
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        void navigator.share({ files: [file], title: 'QR Booking Lapangan' }).catch((err: unknown) => {
+          if (err instanceof Error && err.name !== 'AbortError') {
+            window.alert('QR siap disimpan. Tekan dan tahan gambar QR, lalu pilih Simpan ke Foto.');
+          }
+        });
         return;
       }
 
-      // Fallback for browsers that do not support file sharing.
-      const objectUrl = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = objectUrl;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-    } catch (err) {
-      if (err instanceof Error && err.name === 'AbortError') return;
-      // Keep a direct download fallback if the native share sheet is unavailable.
-      const link = document.createElement('a');
-      link.href = qrImage.src;
-      link.download = fileName;
-      link.click();
+      // Fallback: open the QR image itself; on iPhone users can long-press
+      // the image and choose Save to Photos.
+      window.open(qrImage.src, '_blank', 'noopener,noreferrer');
+    } catch {
+      window.open(qrImage.src, '_blank', 'noopener,noreferrer');
     }
   }
 
