@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Dumbbell, Calendar, Clock, ChevronRight, ChevronLeft, Check, X, User, Phone, Mail, CreditCard, Loader2 } from 'lucide-react';
+import { Dumbbell, Calendar, Clock, ChevronRight, ChevronLeft, Check, X, User, Phone, Mail, CreditCard, Loader2, Download } from 'lucide-react';
 import { COURTS, TIME_SLOTS, PAYMENT_METHODS } from '@/lib/constants';
 import { calculatePrice, formatRupiah, formatDate } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
@@ -35,7 +35,24 @@ export default function BookingPage() {
     }
   }, [searchParams]);
 
-  const todayStr = useMemo(() => new Date().toISOString().split('T')[0], []);
+  const todayStr = useMemo(() => { const now = new Date(); const year = now.getFullYear(); const month = String(now.getMonth() + 1).padStart(2, '0'); const day = String(now.getDate()).padStart(2, '0'); return `${year}-${month}-${day}`; }, []);
+
+  function isPastSlot(slot: string): boolean {
+    if (date !== todayStr) return false;
+    const [hours, minutes] = slot.split(':').map(Number);
+    const slotTime = new Date();
+    slotTime.setHours(hours, minutes, 0, 0);
+    return slotTime.getTime() <= Date.now();
+  }
+
+  function downloadBookingQR() {
+    const qrImage = document.querySelector<HTMLImageElement>('img[alt="QR Code"]');
+    if (!qrImage?.src) return;
+    const link = document.createElement('a');
+    link.href = qrImage.src;
+    link.download = `QR-${booking?.token || 'booking'}.png`;
+    link.click();
+  }
 
   const filteredCourts = useMemo(() => {
     if (!sport) return [];
@@ -142,6 +159,9 @@ export default function BookingPage() {
             <p className="text-3xl font-display font-bold text-brand-400 tracking-wider mb-4">{booking.token}</p>
             <div className="flex justify-center mb-4">
               <QRCodeDisplay value={booking.token} size={220} />
+              <button onClick={downloadBookingQR} className="btn-secondary mt-4 w-full sm:w-auto">
+                <Download className="w-5 h-5" /> Unduh QR Code
+              </button>
             </div>
           </div>
 
@@ -297,21 +317,23 @@ export default function BookingPage() {
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                   {TIME_SLOTS.slice(0, TIME_SLOTS.length - duration + 1).map(slot => {
                     const isBooked = bookedSlots.includes(slot);
+                    const isPast = isPastSlot(slot);
+                    const isUnavailable = isBooked || isPast;
                     const isSelected = startTime === slot;
                     return (
                       <button
                         key={slot}
-                        disabled={isBooked}
+                        disabled={isUnavailable}
                         onClick={() => setStartTime(slot)}
                         className={`px-3 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-1 ${
-                          isBooked
+                          isUnavailable
                             ? 'bg-navy-700/50 text-white/20 cursor-not-allowed line-through'
                             : isSelected
                             ? 'bg-brand-500 text-white'
                             : 'bg-navy-700 text-white/70 hover:bg-navy-600'
                         }`}
                       >
-                        {isBooked && <X className="w-3 h-3" />}
+                        {isUnavailable && <X className="w-3 h-3" />}
                         {slot}
                       </button>
                     );
