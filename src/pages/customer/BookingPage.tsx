@@ -45,13 +45,40 @@ export default function BookingPage() {
     return slotTime.getTime() <= Date.now();
   }
 
-  function downloadBookingQR() {
+  async function downloadBookingQR() {
     const qrImage = document.querySelector<HTMLImageElement>('img[alt="QR Code"]');
     if (!qrImage?.src) return;
-    const link = document.createElement('a');
-    link.href = qrImage.src;
-    link.download = `QR-${booking?.token || 'booking'}.png`;
-    link.click();
+
+    const fileName = `QR-${booking?.token || 'booking'}.png`;
+    try {
+      // iPhone/iPad: open the native share sheet so the user can choose
+      // "Save Image" and place the QR directly in Photos.
+      const response = await fetch(qrImage.src);
+      const blob = await response.blob();
+      const file = new File([blob], fileName, { type: 'image/png' });
+
+      if (navigator.canShare?.({ files: [file] }) && navigator.share) {
+        await navigator.share({ files: [file], title: 'QR Booking Lapangan' });
+        return;
+      }
+
+      // Fallback for browsers that do not support file sharing.
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = objectUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') return;
+      // Keep a direct download fallback if the native share sheet is unavailable.
+      const link = document.createElement('a');
+      link.href = qrImage.src;
+      link.download = fileName;
+      link.click();
+    }
   }
 
   const filteredCourts = useMemo(() => {
@@ -160,7 +187,7 @@ export default function BookingPage() {
             <div className="flex justify-center mb-4">
               <QRCodeDisplay value={booking.token} size={220} />
               <button onClick={downloadBookingQR} className="btn-secondary mt-4 w-full sm:w-auto">
-                <Download className="w-5 h-5" /> Unduh QR Code
+                <Download className="w-5 h-5" /> Simpan QR ke Galeri
               </button>
             </div>
           </div>
