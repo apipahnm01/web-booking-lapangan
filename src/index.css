@@ -1,41 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  html { scroll-behavior: smooth; }
   body {
     @apply font-sans bg-navy-800 text-white antialiased;
+    background-image: radial-gradient(ellipse at 50% -20%, rgba(167,124,79,.13), transparent 55%);
   }
-  h1, h2, h3, h4 {
-    @apply font-display;
-  }
+  h1, h2, h3, h4 { @apply font-display; }
+  ::selection { background: rgba(189,150,101,.35); color: #fffaf3; }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold transition-all shadow-lg shadow-brand-500/20 hover:shadow-brand-500/40 active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand-500 hover:bg-brand-400 text-white font-semibold transition-all shadow-lg shadow-black/20 hover:shadow-brand-500/20 active:scale-95;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold transition-all border border-white/10 active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-white font-semibold transition-all border border-white/15 active:scale-95;
   }
   .btn-danger {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-semibold transition-all active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold transition-all active:scale-95;
   }
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl bg-navy-700 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all;
+    @apply w-full px-4 py-3 rounded-xl bg-white/[0.06] border border-white/10 text-white placeholder-white/35 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition-all;
   }
   .card {
-    @apply bg-navy-600/50 backdrop-blur-sm rounded-2xl border border-white/10 p-6;
+    @apply bg-white/[0.045] backdrop-blur-sm rounded-2xl border border-white/10 p-6 shadow-xl shadow-black/10;
   }
-  .label-field {
-    @apply block text-sm font-medium text-white/70 mb-1.5;
-  }
+  .label-field { @apply block text-sm font-medium text-white/70 mb-1.5; }
+  .editorial-kicker { @apply text-[10px] font-semibold uppercase tracking-[.28em] text-brand-300; }
+  .editorial-title { @apply font-display font-medium tracking-[-.045em] leading-[.88]; }
+  .editorial-rule { @apply border-t border-white/15; }
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #172b47; }
-::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #22c55e; }
+::-webkit-scrollbar-track { background: #1b130f; }
+::-webkit-scrollbar-thumb { background: #705035; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #bd9665; }
+
+:focus-visible { outline: 2px solid #bd9665; outline-offset: 3px; }

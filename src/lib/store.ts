@@ -183,10 +183,10 @@ export function formatDate(dateStr: string): string {
 
 export function exportToCSV(filename: string, headers: string[], rows: (string | number)[][]): void {
   const csv = [
-    headers.join(','),
-    ...rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')),
-  ].join('\n');
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    headers.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';'),
+    ...rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')),
+  ].join('\r\n');
+  const blob = new Blob(['\uFEFF', csv], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = filename;
