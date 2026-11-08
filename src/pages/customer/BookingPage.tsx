@@ -47,34 +47,32 @@ export default function BookingPage() {
 
   function downloadBookingQR() {
     const qrImage = document.querySelector<HTMLImageElement>('img[alt="QR Code"]');
-    if (!qrImage?.src) return;
+    if (!qrImage?.src) {
+      window.alert('QR Code belum siap. Tunggu sebentar lalu coba lagi.');
+      return;
+    }
 
     const fileName = `QR-${booking?.token || 'booking'}.png`;
-    try {
-      // Build the PNG file synchronously so iOS still recognizes this
-      // call as a direct tap by the user (required for the share sheet).
-      const base64 = qrImage.src.split(',')[1];
-      if (!base64) throw new Error('QR image data is unavailable');
-      const binary = window.atob(base64);
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-      const file = new File([bytes], fileName, { type: 'image/png' });
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-      if (navigator.share && navigator.canShare?.({ files: [file] })) {
-        void navigator.share({ files: [file], title: 'QR Booking Lapangan' }).catch((err: unknown) => {
-          if (err instanceof Error && err.name !== 'AbortError') {
-            window.alert('QR siap disimpan. Tekan dan tahan gambar QR, lalu pilih Simpan ke Foto.');
-          }
-        });
-        return;
-      }
-
-      // Fallback: open the QR image itself; on iPhone users can long-press
-      // the image and choose Save to Photos.
-      window.open(qrImage.src, '_blank', 'noopener,noreferrer');
-    } catch {
-      window.open(qrImage.src, '_blank', 'noopener,noreferrer');
+    if (isIOS) {
+      // Safari iOS tidak mengizinkan website menulis langsung ke Foto.
+      // Buka gambar agar pengguna dapat menekan lama lalu memilih Simpan ke Foto.
+      const opened = window.open(qrImage.src, '_blank');
+      if (!opened) window.location.href = qrImage.src;
+      window.alert('Gambar QR dibuka. Tekan dan tahan gambar, lalu pilih Simpan ke Foto.');
+      return;
     }
+
+    // Android/desktop: unduh PNG langsung, tanpa membuka menu Bagikan.
+    const link = document.createElement('a');
+    link.href = qrImage.src;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
 
   const filteredCourts = useMemo(() => {
