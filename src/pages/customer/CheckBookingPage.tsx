@@ -31,10 +31,32 @@ export default function CheckBookingPage() {
   }
 
   function downloadQR(b: Booking) {
+    const qrImage = document.querySelector<HTMLImageElement>('img[alt="QR Code"]');
+    if (!qrImage?.src) {
+      window.alert('QR Code belum siap. Tunggu sebentar lalu coba lagi.');
+      return;
+    }
+
+    const fileName = `QR-${b.token}.png`;
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    if (isIOS) {
+      // Safari iOS requires the user to save the opened image to Photos.
+      const opened = window.open(qrImage.src, '_blank');
+      if (!opened) window.location.href = qrImage.src;
+      window.alert('Gambar QR dibuka. Tekan dan tahan gambar, lalu pilih Simpan ke Foto.');
+      return;
+    }
+
+    // Android/desktop: download the PNG directly instead of opening Share.
     const link = document.createElement('a');
-    link.href = document.querySelector<HTMLImageElement>('img[alt="QR Code"]')?.src || '';
-    link.download = `QR-${b.token}.png`;
+    link.href = qrImage.src;
+    link.download = fileName;
+    document.body.appendChild(link);
     link.click();
+    link.remove();
   }
 
   const statusMap: Record<Booking['status'], { label: string; color: string }> = {
