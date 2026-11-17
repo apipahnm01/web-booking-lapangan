@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { COURTS } from '@/lib/constants';
+
+const courts = COURTS;
 import { Dumbbell, Calendar, QrCode, ShieldCheck, Clock, MapPin, ArrowRight, Search, CheckCircle2 } from 'lucide-react';
 
 const formatPrice = (amount: number) =>
