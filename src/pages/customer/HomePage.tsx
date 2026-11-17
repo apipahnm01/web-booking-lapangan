@@ -1,5 +1,16 @@
 import { Link } from 'react-router-dom';
-import { Dumbbell, Calendar, QrCode, ShieldCheck, Clock, MapPin, ArrowRight, Search } from 'lucide-react';
+import { Dumbbell, Calendar, QrCode, ShieldCheck, Clock, MapPin, ArrowRight, Search, CheckCircle2 } from 'lucide-react';
+
+const courts = [
+  { id: 'futsal-1', name: 'Futsal 1', sport: 'futsal', label: 'Futsal', price: 150000, description: 'Lapangan untuk bermain futsal.' },
+  { id: 'badminton-1', name: 'Badminton 1', sport: 'badminton', label: 'Badminton', price: 50000, description: 'Lapangan untuk bermain badminton.' },
+  { id: 'badminton-2', name: 'Badminton 2', sport: 'badminton', label: 'Badminton', price: 50000, description: 'Lapangan untuk bermain badminton.' },
+  { id: 'badminton-3', name: 'Badminton 3', sport: 'badminton', label: 'Badminton', price: 50000, description: 'Lapangan untuk bermain badminton.' },
+  { id: 'badminton-4', name: 'Badminton 4', sport: 'badminton', label: 'Badminton', price: 50000, description: 'Lapangan untuk bermain badminton.' },
+];
+
+const formatPrice = (amount: number) =>
+  new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(amount);
 
 export default function HomePage() {
   return (
@@ -20,14 +31,14 @@ export default function HomePage() {
               Booking Lapangan <span className="text-brand-400">Futsal</span> &amp; <span className="text-brand-400">Badminton</span>
             </h1>
             <p className="text-lg text-white/60 mb-8 leading-relaxed">
-              Pesan lapangan favoritmu kapan saja, dapatkan kode booking & QR Code untuk check-in langsung di lokasi.
+              Lihat pilihan lapangan, tentukan jadwal, lalu pesan dengan mudah. Dapatkan kode booking & QR Code untuk check-in di lokasi.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/booking" className="btn-primary text-lg px-8 py-4">
+              <a href="#daftar-lapangan" className="btn-primary text-lg px-8 py-4">
                 <Calendar className="w-5 h-5" />
-                Booking Sekarang
+                Lihat Lapangan
                 <ArrowRight className="w-5 h-5" />
-              </Link>
+              </a>
               <Link to="/cek-booking" className="btn-secondary text-lg px-8 py-4">
                 <Search className="w-5 h-5" />
                 Cek Booking
@@ -66,49 +77,56 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Court types */}
-      <section className="max-w-5xl mx-auto px-4 py-16">
-        <h2 className="text-2xl md:text-3xl font-display font-bold text-white text-center mb-12">
-          Pilih Jenis Lapangan
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Link
-            to="/booking?sport=futsal"
-            className="card group hover:border-brand-500/40 transition-all hover:scale-[1.02] cursor-pointer"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-16 h-16 rounded-2xl bg-brand-500/10 flex items-center justify-center">
-                <Dumbbell className="w-8 h-8 text-brand-400" />
-              </div>
-              <ArrowRight className="w-6 h-6 text-white/30 group-hover:text-brand-400 group-hover:translate-x-1 transition-all" />
-            </div>
-            <h3 className="font-display font-bold text-xl text-white mb-1">Futsal</h3>
-            <p className="text-sm text-white/50 mb-3">Lapangan futsal berkualitas, cocok untuk tim kamu.</p>
-            <div className="flex items-center gap-4 text-sm text-white/40">
-              <span className="flex items-center gap-1"><MapPin className="w-4 h-4" /> 1 Lapangan</span>
-              <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> 08:00 - 22:00</span>
-            </div>
-            <p className="mt-4 text-brand-400 font-semibold">Mulai Rp 150.000/jam</p>
-          </Link>
+      {/* Individual court list */}
+      <section id="daftar-lapangan" className="max-w-5xl mx-auto px-4 py-16 scroll-mt-24">
+        <div className="text-center mb-10">
+          <p className="text-brand-400 text-sm font-semibold uppercase tracking-wider mb-2">Pilihan Lapangan</p>
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-3">
+            Lihat Masing-Masing Lapangan
+          </h2>
+          <p className="text-white/50 max-w-2xl mx-auto">
+            Setiap lapangan ditampilkan secara terpisah. Pilih lapangan yang ingin digunakan untuk melihat jadwal dan melanjutkan booking.
+          </p>
+        </div>
 
-          <Link
-            to="/booking?sport=badminton"
-            className="card group hover:border-brand-500/40 transition-all hover:scale-[1.02] cursor-pointer"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-16 h-16 rounded-2xl bg-brand-500/10 flex items-center justify-center">
-                <Dumbbell className="w-8 h-8 text-brand-400 rotate-45" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {courts.map((court, index) => (
+            <article
+              key={court.id}
+              className="card group flex flex-col border border-white/10 hover:border-brand-500/50 transition-all duration-200 animate-slide-up"
+              style={{ animationDelay: `${index * 70}ms` }}
+            >
+              <div className="rounded-xl bg-gradient-to-br from-brand-500/20 via-navy-700 to-navy-800 border border-white/5 p-6 mb-5 flex items-center justify-between">
+                <div className="w-14 h-14 rounded-2xl bg-brand-500/15 flex items-center justify-center">
+                  <Dumbbell className={`w-7 h-7 text-brand-400 ${court.sport === 'badminton' ? 'rotate-45' : ''}`} />
+                </div>
+                <span className="text-xs font-semibold text-brand-300 bg-brand-500/10 border border-brand-500/20 rounded-full px-3 py-1">
+                  {court.label}
+                </span>
               </div>
-              <ArrowRight className="w-6 h-6 text-white/30 group-hover:text-brand-400 group-hover:translate-x-1 transition-all" />
-            </div>
-            <h3 className="font-display font-bold text-xl text-white mb-1">Badminton</h3>
-            <p className="text-sm text-white/50 mb-3">4 lapangan badminton standar internasional.</p>
-            <div className="flex items-center gap-4 text-sm text-white/40">
-              <span className="flex items-center gap-1"><MapPin className="w-4 h-4" /> 4 Lapangan</span>
-              <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> 08:00 - 22:00</span>
-            </div>
-            <p className="mt-4 text-brand-400 font-semibold">Mulai Rp 50.000/jam</p>
-          </Link>
+
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle2 className="w-4 h-4 text-brand-400" />
+                  <span className="text-xs text-white/45">Pilihan lapangan</span>
+                </div>
+                <h3 className="font-display font-bold text-xl text-white mb-2">{court.name}</h3>
+                <p className="text-sm text-white/50 mb-5">{court.description}</p>
+                <div className="flex items-center justify-between border-t border-white/10 pt-4 mb-5">
+                  <span className="text-sm text-white/45">Harga per jam</span>
+                  <span className="text-brand-400 font-bold">{formatPrice(court.price)}</span>
+                </div>
+              </div>
+
+              <Link
+                to={`/booking?sport=${court.sport}`}
+                className="btn-primary w-full justify-center"
+              >
+                Pilih Lapangan
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -119,9 +137,9 @@ export default function HomePage() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {[
-            { step: '1', title: 'Pilih Lapangan', desc: 'Futsal atau Badminton' },
+            { step: '1', title: 'Pilih Lapangan', desc: 'Lihat setiap lapangan dan pilih salah satu' },
             { step: '2', title: 'Pilih Tanggal & Jam', desc: 'Slot tersedia 08:00 - 22:00' },
-            { step: '3', title: 'Bayar', desc: 'Pembayaran simulasi cepat' },
+            { step: '3', title: 'Bayar', desc: 'Pilih metode pembayaran' },
             { step: '4', title: 'Dapat QR Code', desc: 'Tunjukkan di lokasi' },
           ].map((s, i) => (
             <div key={i} className="text-center animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
