@@ -36,6 +36,12 @@
 
 /* Light theme */
 html[data-theme='light'] body { background: #f3f7f5; color: #18332b; }
+html[data-theme='light'] header, html[data-theme='light'] [class~='bg-navy-900/90'] { background-color: rgba(255,255,255,.96); }
+html[data-theme='light'] header a:not([class*='bg-brand']), html[data-theme='light'] header button:not(.theme-toggle), html[data-theme='light'] header span:not([class*='text-brand']) { color: #18332b; }
+html[data-theme='light'] header a:hover, html[data-theme='light'] header button:hover { color: #14532d; }
+html[data-theme='light'] aside, html[data-theme='light'] [class~='bg-navy-900'] { background-color: #ffffff; }
+html[data-theme='light'] aside a:not([class*='bg-brand']) { color: #496157; }
+html[data-theme='light'] aside a:not([class*='bg-brand']):hover { color: #18332b; }
 html[data-theme='light'] .bg-navy-800 { background-color: #f3f7f5; }
 html[data-theme='light'] .bg-navy-900 { background-color: #ffffff; }
 html[data-theme='light'] .bg-navy-700 { background-color: #e8f0ec; }
