@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,12 +7,9 @@
 @layer base {
   body {
     @apply font-sans bg-navy-800 text-white antialiased;
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
   h1, h2, h3, h4 {
     @apply font-display;
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    letter-spacing: -0.025em;
   }
 }
 
@@ -37,7 +34,7 @@
   }
 }
 
-/* Light theme: keep the existing layout while changing its surfaces and contrast. */
+/* Light theme */
 html[data-theme='light'] body { background: #f3f7f5; color: #18332b; }
 html[data-theme='light'] .bg-navy-800 { background-color: #f3f7f5; }
 html[data-theme='light'] .bg-navy-900 { background-color: #ffffff; }
@@ -70,7 +67,6 @@ html[data-theme='light'] .theme-hero p { color: #5c7167; }
 html[data-theme='light'] .theme-hero .text-white { color: #18332b; }
 html[data-theme='light'] .theme-hero .text-white\/60 { color: #5c7167; }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #172b47; }
 ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
