@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const NAV_ITEMS = [
   { to: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -58,13 +59,16 @@ export default function AdminLayout() {
     <div className="min-h-screen flex bg-navy-800">
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex flex-col w-64 bg-navy-900 border-r border-white/10 fixed h-screen">
-        <div className="h-16 flex items-center gap-2.5 px-6 border-b border-white/10">
-          <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center">
-            <Dumbbell className="w-5 h-5 text-white" />
+        <div className="h-16 flex items-center justify-between gap-2 px-5 border-b border-white/10">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center">
+              <Dumbbell className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-display font-bold text-lg text-white">
+              Sport<span className="text-brand-400">Admin</span>
+            </span>
           </div>
-          <span className="font-display font-bold text-lg text-white">
-            Sport<span className="text-brand-400">Admin</span>
-          </span>
+          <ThemeToggle />
         </div>
         <div className="flex-1 overflow-y-auto p-4">
           {navContent}
@@ -85,9 +89,12 @@ export default function AdminLayout() {
           </div>
           <span className="font-display font-bold text-white">SportAdmin</span>
         </div>
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 rounded-lg hover:bg-white/5 text-white">
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 rounded-lg hover:bg-white/5 text-white">
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile sidebar overlay */}
