@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
-import { COURTS } from '@/lib/constants';
-
-const courts = COURTS;
+import { usePublicCourts } from '@/lib/usePublicCourts';
 import { Dumbbell, Calendar, QrCode, ShieldCheck, Clock, MapPin, ArrowRight, Search, CheckCircle2 } from 'lucide-react';
 
 const formatPrice = (amount: number) =>
   new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(amount);
 
 export default function HomePage() {
+  const courts = usePublicCourts();
   return (
     <div>
       {/* Hero */}
