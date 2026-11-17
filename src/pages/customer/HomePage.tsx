@@ -10,8 +10,8 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-700 via-navy-800 to-navy-900" />
+      <section className="relative overflow-hidden theme-hero">
+        <div className="absolute inset-0 bg-gradient-to-br from-navy-700 via-navy-800 to-navy-900 theme-hero-background" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
