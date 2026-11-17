@@ -1,13 +1,6 @@
 import { Link } from 'react-router-dom';
+import { COURTS } from '@/lib/constants';
 import { Dumbbell, Calendar, QrCode, ShieldCheck, Clock, MapPin, ArrowRight, Search, CheckCircle2 } from 'lucide-react';
-
-const courts = [
-  { id: 'futsal-1', name: 'Futsal 1', sport: 'futsal', label: 'Futsal', price: 150000, description: 'Lapangan untuk bermain futsal.' },
-  { id: 'badminton-1', name: 'Badminton 1', sport: 'badminton', label: 'Badminton', price: 50000, description: 'Lapangan untuk bermain badminton.' },
-  { id: 'badminton-2', name: 'Badminton 2', sport: 'badminton', label: 'Badminton', price: 50000, description: 'Lapangan untuk bermain badminton.' },
-  { id: 'badminton-3', name: 'Badminton 3', sport: 'badminton', label: 'Badminton', price: 50000, description: 'Lapangan untuk bermain badminton.' },
-  { id: 'badminton-4', name: 'Badminton 4', sport: 'badminton', label: 'Badminton', price: 50000, description: 'Lapangan untuk bermain badminton.' },
-];
 
 const formatPrice = (amount: number) =>
   new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(amount);
@@ -101,7 +94,7 @@ export default function HomePage() {
                   <Dumbbell className={`w-7 h-7 text-brand-400 ${court.sport === 'badminton' ? 'rotate-45' : ''}`} />
                 </div>
                 <span className="text-xs font-semibold text-brand-300 bg-brand-500/10 border border-brand-500/20 rounded-full px-3 py-1">
-                  {court.label}
+                  {court.sport === 'futsal' ? 'Futsal' : 'Badminton'}
                 </span>
               </div>
 
@@ -111,15 +104,15 @@ export default function HomePage() {
                   <span className="text-xs text-white/45">Pilihan lapangan</span>
                 </div>
                 <h3 className="font-display font-bold text-xl text-white mb-2">{court.name}</h3>
-                <p className="text-sm text-white/50 mb-5">{court.description}</p>
+                <p className="text-sm text-white/50 mb-5">Lapangan {court.sport} yang siap digunakan.</p>
                 <div className="flex items-center justify-between border-t border-white/10 pt-4 mb-5">
                   <span className="text-sm text-white/45">Harga per jam</span>
-                  <span className="text-brand-400 font-bold">{formatPrice(court.price)}</span>
+                  <span className="text-brand-400 font-bold">{formatPrice(court.pricePerHour)}</span>
                 </div>
               </div>
 
               <Link
-                to={`/booking?sport=${court.sport}`}
+                to={`/booking?sport=${court.sport}&court=${court.id}`}
                 className="btn-primary w-full justify-center"
               >
                 Pilih Lapangan
