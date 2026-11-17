@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap');
 
+/* Apply Barlow consistently across every page and component. */
+html, body, #root, body *, button, input, select, textarea {
+  font-family: 'Barlow', system-ui, sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Barlow', system-ui, sans-serif !important;
+  font-weight: 800;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
