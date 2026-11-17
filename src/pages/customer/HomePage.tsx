@@ -91,11 +91,17 @@ export default function HomePage() {
               className="card group flex flex-col border border-white/10 hover:border-brand-500/50 transition-all duration-200 animate-slide-up"
               style={{ animationDelay: `${index * 70}ms` }}
             >
-              <div className="rounded-xl bg-gradient-to-br from-brand-500/20 via-navy-700 to-navy-800 border border-white/5 p-6 mb-5 flex items-center justify-between">
-                <div className="w-14 h-14 rounded-2xl bg-brand-500/15 flex items-center justify-center">
-                  <Dumbbell className={`w-7 h-7 text-brand-400 ${court.sport === 'badminton' ? 'rotate-45' : ''}`} />
-                </div>
-                <span className="text-xs font-semibold text-brand-300 bg-brand-500/10 border border-brand-500/20 rounded-full px-3 py-1">
+              <div className="relative h-44 overflow-hidden rounded-xl border border-white/10 mb-5">
+                <img
+                  src={court.sport === 'futsal'
+                    ? 'https://images.unsplash.com/photo-1760174012435-630a17a434ed?auto=format&fit=crop&w=1200&q=80'
+                    : 'https://images.unsplash.com/photo-1775993167284-8e6a6e56ab69?auto=format&fit=crop&w=1200&q=80'}
+                  alt={`Foto lapangan ${court.name}`}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/75 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-3 text-xs font-semibold text-white bg-black/40 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1">
                   {court.sport === 'futsal' ? 'Futsal' : 'Badminton'}
                 </span>
               </div>
