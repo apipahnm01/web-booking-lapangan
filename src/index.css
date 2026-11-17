@@ -65,7 +65,7 @@ html[data-theme='light'] .theme-hero-background { background: linear-gradient(13
 html[data-theme='light'] .theme-hero h1 { color: #18332b; }
 html[data-theme='light'] .theme-hero p { color: #5c7167; }
 html[data-theme='light'] .theme-hero .text-white { color: #18332b; }
-html[data-theme='light'] .theme-hero .text-white\\/60 { color: #5c7167; }
+html[data-theme='light'] .theme-hero [class~='text-white/60'] { color: #5c7167; }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #172b47; }
