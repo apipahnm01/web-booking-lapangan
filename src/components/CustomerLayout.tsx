@@ -3,6 +3,7 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Search, Shield, Dumbbell, LogOut, LogIn } from 'lucide-react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function CustomerLayout() {
   const location = useLocation();
@@ -14,7 +15,7 @@ export default function CustomerLayout() {
     const metadata = session?.user.user_metadata || {};
     const fullName = metadata.full_name || metadata.name || metadata.display_name;
     const name = typeof fullName === 'string' ? fullName.trim() : '';
-    if (name) return name.split(/\s+/)[0];
+    if (name) return name.split(/\\s+/)[0];
     const email = session?.user.email || '';
     return email.includes('@') ? email.split('@')[0] : 'Pengguna';
   })();
@@ -69,6 +70,7 @@ export default function CustomerLayout() {
             </span>
           </Link>
           <nav className="flex items-center justify-end gap-1 flex-wrap">
+            <ThemeToggle />
             <Link
               to="/"
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
