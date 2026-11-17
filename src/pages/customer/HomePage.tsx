@@ -94,10 +94,8 @@ export default function HomePage() {
                 <img
                   src={court.sport === 'futsal'
                     ? 'https://laparaga.s3.ap-southeast-1.amazonaws.com/venue/5fa66e1d5a12e2386dbf287a_thumbnail_original_1686043890341.png'
-                    : court.id === 'badminton-3'
-                      ? 'https://asset.ayo.co.id/image/venue/176967625064502.image_cropper_5479706B-E297-4AA9-A45E-E0B9931F6194-1124-0000009CC7422108.jpg.jpeg'
-                      : court.id === 'badminton-4'
-                        ? 'https://asset.ayo.co.id/image/venue-field/176792532432539.image_cropper_1767924965379.jpg.jpeg'
+                    : court.id === 'badminton-3' || court.id === 'badminton-4'
+                      ? 'https://asset.ayo.co.id/image/venue-field/176792532432539.image_cropper_1767924965379.jpg.jpeg'
                         : 'https://asset.ayo.co.id/image/venue/176967625064502.image_cropper_5479706B-E297-4AA9-A45E-E0B9931F6194-1124-0000009CC7422108.jpg.jpeg'}
                   alt={`Foto lapangan ${court.name}`}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
