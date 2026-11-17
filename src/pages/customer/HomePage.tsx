@@ -95,7 +95,11 @@ export default function HomePage() {
                 <img
                   src={court.sport === 'futsal'
                     ? 'https://images.unsplash.com/photo-1793929590042-06dbc8fdda46?auto=format&fit=crop&w=1200&q=80'
-                    : 'https://images.unsplash.com/photo-1775993167284-8e6a6e56ab69?auto=format&fit=crop&w=1200&q=80'}
+                    : court.id === 'badminton-3'
+                      ? 'https://tennis.luzhniki.ru/upload/iblock/ed5/vjk05g456thp6wr7kceb220xkbb47r3v/6.jpg'
+                      : court.id === 'badminton-4'
+                        ? 'https://images.squarespace-cdn.com/content/v1/56247f57e4b08ff533f139a1/057a9699-77a4-445a-872d-501342833121/Badminton-21.jpg'
+                        : 'https://images.unsplash.com/photo-1775993167284-8e6a6e56ab69?auto=format&fit=crop&w=1200&q=80'}
                   alt={`Foto lapangan ${court.name}`}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
