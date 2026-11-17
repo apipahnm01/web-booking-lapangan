@@ -1,17 +1,19 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Dumbbell, Calendar, Clock, ChevronRight, ChevronLeft, Check, X, User, Phone, Mail, CreditCard, Loader2, Download } from 'lucide-react';
-import { COURTS, TIME_SLOTS, PAYMENT_METHODS } from '@/lib/constants';
-import { calculatePrice, formatRupiah, formatDate } from '@/lib/store';
+import { TIME_SLOTS, PAYMENT_METHODS } from '@/lib/constants';
+import { formatRupiah, formatDate } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 import type { SportType, Booking } from '@/lib/types';
 import QRCodeDisplay from '@/components/QRCodeDisplay';
+import { usePublicCourts } from '@/lib/usePublicCourts';
 
 type Step = 'sport' | 'court' | 'datetime' | 'details' | 'payment' | 'result';
 
 export default function BookingPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const courts = usePublicCourts();
 
   const [step, setStep] = useState<Step>('sport');
   const [sport, setSport] = useState<SportType | null>(null);
@@ -29,11 +31,24 @@ export default function BookingPage() {
 
   useEffect(() => {
     const s = searchParams.get('sport');
+    const requestedCourtId = searchParams.get('court');
+    const requestedCourt = requestedCourtId
+      ? courts.find(c => c.id === requestedCourtId)
+      : undefined;
+
+    if (requestedCourt && (!s || requestedCourt.sport === s)) {
+      setSport(requestedCourt.sport);
+      setCourtId(requestedCourt.id);
+      setStep('datetime');
+      return;
+    }
+
     if (s === 'futsal' || s === 'badminton') {
       setSport(s);
+      setCourtId('');
       setStep('court');
     }
-  }, [searchParams]);
+  }, [searchParams, courts]);
 
   const todayStr = useMemo(() => { const now = new Date(); const year = now.getFullYear(); const month = String(now.getMonth() + 1).padStart(2, '0'); const day = String(now.getDate()).padStart(2, '0'); return `${year}-${month}-${day}`; }, []);
 
@@ -77,8 +92,8 @@ export default function BookingPage() {
 
   const filteredCourts = useMemo(() => {
     if (!sport) return [];
-    return COURTS.filter(c => c.sport === sport);
-  }, [sport]);
+    return courts.filter(c => c.sport === sport);
+  }, [sport, courts]);
 
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
 
@@ -100,8 +115,8 @@ export default function BookingPage() {
     return () => { active = false; };
   }, [courtId, date]);
 
-  const selectedCourt = useMemo(() => COURTS.find(c => c.id === courtId), [courtId]);
-  const totalPrice = useMemo(() => calculatePrice(courtId, duration), [courtId, duration]);
+  const selectedCourt = useMemo(() => courts.find(c => c.id === courtId), [courts, courtId]);
+  const totalPrice = useMemo(() => selectedCourt ? selectedCourt.pricePerHour * duration : 0, [selectedCourt, duration]);
 
   const steps: { key: Step; label: string }[] = [
     { key: 'sport', label: 'Jenis' },
