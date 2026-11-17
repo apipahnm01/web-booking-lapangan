@@ -29,8 +29,21 @@ export default function BookingPage() {
 
   useEffect(() => {
     const s = searchParams.get('sport');
+    const requestedCourtId = searchParams.get('court');
+    const requestedCourt = requestedCourtId
+      ? COURTS.find(c => c.id === requestedCourtId)
+      : undefined;
+
+    if (requestedCourt && (!s || requestedCourt.sport === s)) {
+      setSport(requestedCourt.sport);
+      setCourtId(requestedCourt.id);
+      setStep('datetime');
+      return;
+    }
+
     if (s === 'futsal' || s === 'badminton') {
       setSport(s);
+      setCourtId('');
       setStep('court');
     }
   }, [searchParams]);
