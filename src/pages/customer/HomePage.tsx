@@ -94,7 +94,7 @@ export default function HomePage() {
               <div className="relative h-44 overflow-hidden rounded-xl border border-white/10 mb-5">
                 <img
                   src={court.sport === 'futsal'
-                    ? 'https://images.unsplash.com/photo-1760174012435-630a17a434ed?auto=format&fit=crop&w=1200&q=80'
+                    ? 'https://images.unsplash.com/photo-1793929590042-06dbc8fdda46?auto=format&fit=crop&w=1200&q=80'
                     : 'https://images.unsplash.com/photo-1775993167284-8e6a6e56ab69?auto=format&fit=crop&w=1200&q=80'}
                   alt={`Foto lapangan ${court.name}`}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
