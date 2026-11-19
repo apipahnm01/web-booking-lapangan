@@ -187,3 +187,10 @@ html[data-theme='dark'] .admin-sidebar a[class*="bg-black"] { color:#fff !import
   .customer-shell header .max-w-7xl > a:first-child span { font-size:15px; }
   .admin-mobile-header .admin-brand-name { font-size:13px; }
 }
+
+/* Keep high-contrast labels on solid action controls in light mode */
+.customer-shell main button[class~="bg-brand-500"],
+.admin-main button[class~="bg-brand-500"],
+.booking-page button[class~="bg-brand-500"] { color:var(--primary-contrast) !important; }
+.customer-shell main .btn-primary,.admin-main .btn-primary,.booking-page .btn-primary { color:var(--primary-contrast) !important; }
+.customer-shell main button[class~="bg-brand-500/10"] { color:var(--text) !important; }
