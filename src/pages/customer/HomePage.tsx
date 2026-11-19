@@ -16,15 +16,33 @@ export default function HomePage() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (!supabase) return;
     let active = true;
-    void supabase.auth.getSession().then(({ data }) => {
-      if (active) setUser(data.session?.user ?? null);
-    });
+    async function syncUser(nextUser: User | null) {
+      if (!active) return;
+      setUser(nextUser);
+      setIsAdmin(false);
+      if (!nextUser) return;
+      try {
+        const { data } = await supabase!.auth.getSession();
+        const session = data.session;
+        if (!session || session.user.id !== nextUser.id) return;
+        const response = await fetch('/api/admin/login', {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+          credentials: 'same-origin',
+        });
+        const result = await response.json().catch(() => ({}));
+        if (active) setIsAdmin(response.ok && result.isAdmin === true);
+      } catch {
+        if (active) setIsAdmin(false);
+      }
+    }
+    void supabase.auth.getSession().then(({ data }) => syncUser(data.session?.user ?? null));
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (active) setUser(session?.user ?? null);
+      void syncUser(session?.user ?? null);
     });
     return () => {
       active = false;
@@ -81,6 +99,11 @@ export default function HomePage() {
                 <span className="rounded-full border border-[#1e3a8a]/20 bg-[#1e3a8a]/[0.06] px-4 py-2 text-xs font-semibold text-[#1e3a8a] dark:border-blue-300/20 dark:bg-blue-300/10 dark:text-blue-200 sm:px-5 sm:text-sm" aria-label={`Pengguna masuk: ${displayName}`}>
                   Hi, {displayName}
                 </span>
+                {isAdmin && (
+                  <Link to="/admin/dashboard" className="rounded-full bg-[#1e3a8a] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#172554] sm:px-5 sm:text-sm">
+                    Halaman Admin
+                  </Link>
+                )}
               ) : (
                 <Link to="/login" className="rounded-full border border-neutral-200 px-4 py-2 text-xs font-semibold transition hover:border-black hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black sm:px-5 sm:text-sm">Login</Link>
               )}
