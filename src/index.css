@@ -203,3 +203,37 @@ html[data-theme='light'] button[class~='bg-brand-500'] { color: #ffffff !importa
 html[data-theme='dark'] [class~='bg-brand-500'] *,
 html[data-theme='dark'] a[class~='bg-brand-500'],
 html[data-theme='dark'] button[class~='bg-brand-500'] { color: #111214 !important; }
+
+
+/* Final typography and frame polish — keep the existing layout and brand identity. */
+.home-page {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.home-page h1,
+.home-page h2,
+.home-page h3 {
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.035em;
+}
+.home-page h1 { font-weight: 750; }
+.home-page h2 { font-weight: 700; }
+.home-page h3 { font-weight: 650; }
+.home-page .rounded-2xl.border,
+.home-page .rounded-xl.border {
+  border-width: 1px;
+  border-color: #e2e2df;
+}
+.home-page .rounded-2xl.border {
+  box-shadow: 0 8px 28px rgba(0,0,0,.035);
+}
+html[data-theme='dark'] .home-page .rounded-2xl.border,
+html.dark .home-page .rounded-2xl.border {
+  border-color: #34353b;
+  box-shadow: 0 8px 28px rgba(0,0,0,.16);
+}
+html[data-theme='dark'] .home-page .rounded-xl.border,
+html.dark .home-page .rounded-xl.border {
+  border-color: #34353b;
+}
