@@ -184,7 +184,7 @@ export default function BookingPage() {
   // Result step
   if (step === 'result' && booking) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-12">
+      <div className="booking-page mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
         <div className="card text-center animate-scale-in">
           <div className="w-16 h-16 rounded-full bg-brand-500/20 flex items-center justify-center mx-auto mb-4">
             <Check className="w-8 h-8 text-brand-400" />
@@ -233,9 +233,9 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="booking-page mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-10">
       {/* Progress */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="booking-progress flex items-center justify-between mb-7 rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
         {steps.map((s, i) => (
           <div key={s.key} className="flex items-center flex-1 last:flex-none">
             <div className="flex flex-col items-center gap-1">
@@ -335,7 +335,7 @@ export default function BookingPage() {
             <>
               <div className="mb-6">
                 <label className="label-field">Durasi</label>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   {[1, 2, 3].map(d => (
                     <button
                       key={d}
@@ -394,7 +394,7 @@ export default function BookingPage() {
                 </div>
               )}
 
-              <div className="flex gap-3">
+              <div className="booking-actions flex flex-col-reverse gap-3 sm:flex-row">
                 <button onClick={() => setStep('court')} className="btn-secondary">
                   <ChevronLeft className="w-5 h-5" /> Kembali
                 </button>
