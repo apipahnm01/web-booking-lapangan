@@ -101,7 +101,7 @@ export default function HomePage() {
                     Hi, {displayName}
                   </span>
                   {isAdmin && (
-                    <Link to="/admin/dashboard" className="rounded-full bg-[#1e3a8a] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#172554] sm:px-5 sm:text-sm">
+                    <Link to="/admin/dashboard" className="rounded-full border border-[#1e3a8a]/20 bg-[#1e3a8a]/[0.06] px-4 py-2 text-xs font-semibold text-[#1e3a8a] transition hover:bg-[#1e3a8a]/10 dark:border-blue-300/20 dark:bg-blue-300/10 dark:text-blue-200 sm:px-5 sm:text-sm">
                       Halaman Admin
                     </Link>
                   )}
