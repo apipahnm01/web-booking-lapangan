@@ -68,7 +68,7 @@ export default function CustomerLayout() {
               <Dumbbell className="w-5 h-5 text-white" />
             </div>
             <span className="font-display font-bold text-lg text-white">
-              Sport<span className="text-brand-400">Futsal</span>
+              COURT<span className="text-brand-400">SPACE.</span>
             </span>
           </Link>
           <nav className="flex items-center justify-end gap-1 flex-wrap">
@@ -132,7 +132,7 @@ export default function CustomerLayout() {
       </main>
 
       <footer className="border-t border-white/10 py-6 text-center text-sm text-white/40">
-        <p>&copy; 2025 SportFutsal - Sistem Booking Lapangan Futsal &amp; Badminton</p>
+        <p>&copy; 2025 CourtSpace - Sistem Booking Lapangan Futsal &amp; Badminton</p>
       </footer>
     </div>
   );
