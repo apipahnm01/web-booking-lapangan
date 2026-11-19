@@ -36,7 +36,7 @@ export default function HomePage() {
     const metadata = user?.user_metadata || {};
     const rawName = metadata.full_name || metadata.name || metadata.display_name;
     const name = typeof rawName === 'string' ? rawName.trim() : '';
-    if (name) return name.split(/\\s+/)[0];
+    if (name) return name.split(/\s+/)[0];
     const email = user?.email || '';
     return email.includes('@') ? email.split('@')[0] : 'Pengguna';
   })();
