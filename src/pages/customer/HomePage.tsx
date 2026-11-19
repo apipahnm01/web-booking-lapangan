@@ -75,8 +75,8 @@ export default function HomePage() {
                 Temukan lapangan futsal dan badminton, pilih jadwal yang tersedia, lalu booking dengan praktis dalam satu tempat.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-                <a href="#courts" className="inline-flex items-center gap-2 rounded-full bg-black px-7 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-neutral-700 dark:bg-white dark:text-black dark:hover:bg-neutral-200">Explore Courts <ArrowRight className="h-4 w-4" /></a>
-                <Link to="/cek-booking" className="rounded-full border border-neutral-300 bg-white/80 px-7 py-3.5 text-sm font-semibold transition hover:border-black dark:border-white/20 dark:bg-transparent dark:hover:border-white">Cek Booking</Link>
+                <a href="#courts" className="inline-flex items-center gap-2 rounded-full bg-black px-7 py-3.5 text-sm font-semibold !text-white transition hover:-translate-y-0.5 hover:bg-neutral-700 dark:bg-white dark:!text-black dark:hover:bg-neutral-200">Explore Courts <ArrowRight className="h-4 w-4" /></a>
+                <Link to="/cek-booking" className="rounded-full border border-neutral-300 bg-white/80 px-7 py-3.5 text-sm font-semibold text-neutral-900 transition hover:border-black dark:border-white/20 dark:bg-transparent dark:text-white dark:hover:border-white">Cek Booking</Link>
               </div>
             </div>
 
@@ -96,7 +96,7 @@ export default function HomePage() {
               <label className="flex items-center gap-3 rounded-xl bg-neutral-50 px-4 py-3 dark:bg-[#191a1e]"><Dumbbell className="h-5 w-5 shrink-0 text-neutral-500" /><span className="min-w-0 flex-1"><span className="block text-[10px] font-semibold uppercase tracking-wider text-neutral-400">Olahraga</span><select value={sport} onChange={e => setSport(e.target.value)} className="mt-1 w-full bg-transparent text-sm font-bold outline-none"><option value="futsal">Futsal</option><option value="badminton">Badminton</option></select></span></label>
               <label className="flex items-center gap-3 rounded-xl bg-neutral-50 px-4 py-3 dark:bg-[#191a1e]"><CalendarDays className="h-5 w-5 shrink-0 text-neutral-500" /><span className="min-w-0 flex-1"><span className="block text-[10px] font-semibold uppercase tracking-wider text-neutral-400">Tanggal bermain</span><input type="date" min={today} value={date} onChange={e => setDate(e.target.value)} className="mt-1 w-full bg-transparent text-sm font-semibold outline-none" /></span></label>
               <label className="flex items-center gap-3 rounded-xl bg-neutral-50 px-4 py-3 dark:bg-[#191a1e]"><Clock3 className="h-5 w-5 shrink-0 text-neutral-500" /><span className="min-w-0 flex-1"><span className="block text-[10px] font-semibold uppercase tracking-wider text-neutral-400">Jam bermain</span><select value={time} onChange={e => setTime(e.target.value)} className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"><option value="">Pilih jam</option>{Array.from({ length: 15 }, (_, i) => `${String(i + 8).padStart(2, '0')}:00`).map(slot => <option key={slot} value={slot}>{slot}</option>)}</select></span></label>
-              <button onClick={searchCourts} className="inline-flex min-h-[58px] items-center justify-center gap-2 rounded-xl bg-black px-7 text-sm font-bold text-white transition hover:bg-neutral-700 dark:bg-white dark:text-black dark:hover:bg-neutral-200"><Search className="h-4 w-4" /> Cari</button>
+              <button onClick={searchCourts} className="inline-flex min-h-[58px] items-center justify-center gap-2 rounded-xl bg-black px-7 text-sm font-bold !text-white transition hover:bg-neutral-700 dark:bg-white dark:!text-black dark:hover:bg-neutral-200"><Search className="h-4 w-4" /> Cari</button>
             </div>
           </div>
         </div>
