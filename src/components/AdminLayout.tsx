@@ -56,7 +56,7 @@ export default function AdminLayout() {
   );
 
   return (
-    <div className="min-h-screen flex bg-navy-800">
+    <div className="admin-shell min-h-screen flex bg-navy-800">
       {/* Desktop sidebar */}
       <aside className="hidden lg:flex flex-col w-64 bg-navy-900 border-r border-white/10 fixed h-screen">
         <div className="h-16 flex items-center justify-between gap-2 px-5 border-b border-white/10">
