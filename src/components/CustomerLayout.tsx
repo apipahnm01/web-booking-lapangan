@@ -61,7 +61,7 @@ export default function CustomerLayout() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f3f8ff]">
-      <header className="sticky top-0 z-40 border-b border-blue-100 bg-white/90 shadow-sm backdrop-blur-xl">
+      {!onHome && (<header className="sticky top-0 z-40 border-b border-blue-100 bg-white/90 shadow-sm backdrop-blur-xl">
         <div className="mx-auto flex min-h-[76px] max-w-7xl items-center justify-between gap-3 px-5 py-3 md:px-10">
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 shadow-lg shadow-blue-200"><Dumbbell className="h-6 w-6 text-white" /></div>
@@ -93,7 +93,7 @@ export default function CustomerLayout() {
           <Link to="/cek-booking" className="whitespace-nowrap text-xs font-semibold text-slate-600">Cek Booking</Link>
           {isAdmin && <Link to="/admin/dashboard" className="whitespace-nowrap text-xs font-semibold text-blue-700">Admin</Link>}
         </div>
-      </header>
+      </header>)}
 
       <main className="flex-1"><Outlet /></main>
 
