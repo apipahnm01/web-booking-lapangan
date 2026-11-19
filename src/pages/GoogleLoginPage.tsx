@@ -86,7 +86,7 @@ export default function GoogleLoginPage() {
       <div className="login-mark w-16 h-16 rounded-2xl bg-black flex items-center justify-center mx-auto mb-4">
         {isAdminPath ? <Shield className="w-8 h-8 text-white" /> : <Dumbbell className="w-8 h-8 text-white" />}
       </div>
-      <h1 className="text-2xl font-display font-bold text-neutral-900">{isAdminPath ? 'Login Admin' : 'Masuk ke CourtSpace'}</h1>
+      <h1 className="text-2xl font-display font-bold text-neutral-900">{isAdminPath ? 'Login Admin' : 'Masuk ke SportFutsal'}</h1>
       <p className="text-neutral-500 text-sm mt-2 mb-7">{isAdminPath ? 'Masuk menggunakan akun Google yang sudah diberi akses admin.' : 'Login dengan Google untuk melanjutkan booking lapangan.'}</p>
       <div className="card">
         {error && <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-red-700 text-sm mb-4 text-left"><AlertCircle className="w-4 h-4 flex-shrink-0" />{error}</div>}
