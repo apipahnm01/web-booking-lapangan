@@ -5,8 +5,8 @@ type Theme = 'light' | 'dark';
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') return 'dark';
-    return window.localStorage.getItem('sportfutsal-theme') === 'light' ? 'light' : 'dark';
+    if (typeof window === 'undefined') return 'light';
+    return window.localStorage.getItem('sportfutsal-theme') === 'dark' ? 'dark' : 'light';
   });
 
   useEffect(() => {
