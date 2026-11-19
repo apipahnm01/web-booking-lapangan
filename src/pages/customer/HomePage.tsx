@@ -1,7 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { usePublicCourts } from '@/lib/usePublicCourts';
 import ThemeToggle from '@/components/ThemeToggle';
+import { supabase } from '@/lib/supabase';
+import type { User } from '@supabase/supabase-js';
 import { ArrowRight, CalendarDays, CheckCircle2, Clock3, Dumbbell, History, QrCode, Search, ShieldCheck, Trophy, Users } from 'lucide-react';
 
 const formatPrice = (amount: number) =>
@@ -13,6 +15,31 @@ export default function HomePage() {
   const [sport, setSport] = useState('futsal');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    if (!supabase) return;
+    let active = true;
+    void supabase.auth.getSession().then(({ data }) => {
+      if (active) setUser(data.session?.user ?? null);
+    });
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (active) setUser(session?.user ?? null);
+    });
+    return () => {
+      active = false;
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const displayName = (() => {
+    const metadata = user?.user_metadata || {};
+    const rawName = metadata.full_name || metadata.name || metadata.display_name;
+    const name = typeof rawName === 'string' ? rawName.trim() : '';
+    if (name) return name.split(/\\s+/)[0];
+    const email = user?.email || '';
+    return email.includes('@') ? email.split('@')[0] : 'Pengguna';
+  })();
 
   const today = useMemo(() => {
     const now = new Date();
@@ -50,7 +77,13 @@ export default function HomePage() {
             </nav>
             <div className="flex items-center gap-2">
               <ThemeToggle />
-              <Link to="/login" className="rounded-full border border-neutral-200 px-4 py-2 text-xs font-semibold transition hover:border-black hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black sm:px-5 sm:text-sm">Login</Link>
+              {user ? (
+                <span className="rounded-full border border-[#1e3a8a]/20 bg-[#1e3a8a]/[0.06] px-4 py-2 text-xs font-semibold text-[#1e3a8a] dark:border-blue-300/20 dark:bg-blue-300/10 dark:text-blue-200 sm:px-5 sm:text-sm" aria-label={`Pengguna masuk: ${displayName}`}>
+                  Hi, {displayName}
+                </span>
+              ) : (
+                <Link to="/login" className="rounded-full border border-neutral-200 px-4 py-2 text-xs font-semibold transition hover:border-black hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black sm:px-5 sm:text-sm">Login</Link>
+              )}
               <Link to="/booking" className="hidden rounded-full bg-black px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-neutral-700 dark:bg-white dark:text-black dark:hover:bg-neutral-200 sm:inline-flex sm:text-sm">Booking Sekarang</Link>
             </div>
           </div>
