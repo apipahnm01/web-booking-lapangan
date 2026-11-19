@@ -137,16 +137,21 @@ html.dark .admin-shell, html[data-theme='dark'] .admin-shell { background: #1011
 }
 
 
-/* Shared CourtSpace visual tokens for existing Tailwind-based screens.
-   The landing page already uses matching neutral colors; these rules bring
-   booking, customer and admin screens onto the same palette. */
+/* Unified SportFutsal design system: one navy accent across landing, login, booking and admin.
+   Semantic success/warning/danger colors remain independent for clear status meaning. */
 html[data-theme='light'] body { background: #f5f5f3; color: #171717; }
 html[data-theme='light'] .bg-navy-800 { background-color: #f5f5f3 !important; }
 html[data-theme='light'] .bg-navy-900 { background-color: #ffffff !important; }
 html[data-theme='light'] .bg-navy-700 { background-color: #f5f5f5 !important; }
 html[data-theme='light'] .bg-navy-600 { background-color: #ffffff !important; }
-html[data-theme='light'] [class~='bg-brand-500'] { background-color: #171717 !important; color: #ffffff !important; }
-html[data-theme='light'] [class~='bg-brand-500/20'] { background-color: #f0f0ef !important; }
+html[data-theme='light'] [class~='bg-brand-500'] { background-color: #1e3a8a !important; color: #ffffff !important; }
+html[data-theme='light'] [class~='bg-brand-500/10'] { background-color: rgba(30,58,138,.08) !important; }
+html[data-theme='light'] [class~='bg-brand-500/15'] { background-color: rgba(30,58,138,.11) !important; }
+html[data-theme='light'] [class~='bg-brand-500/20'] { background-color: rgba(30,58,138,.14) !important; }
+html[data-theme='light'] [class~='text-brand-400'],
+html[data-theme='light'] [class~='text-brand-300'] { color: #1e3a8a !important; }
+html[data-theme='light'] [class~='border-brand-500'],
+html[data-theme='light'] [class~='border-brand-500/20'] { border-color: rgba(30,58,138,.28) !important; }
 html[data-theme='light'] [class~='text-white'] { color: #171717; }
 html[data-theme='light'] [class~='text-white/90'] { color: #262626; }
 html[data-theme='light'] [class~='text-white/80'] { color: #404040; }
@@ -158,19 +163,27 @@ html[data-theme='light'] [class~='border-white/10'],
 html[data-theme='light'] [class~='border-white/5'] { border-color: #e5e5e5 !important; }
 html[data-theme='light'] [class~='bg-white/5'] { background-color: rgba(0,0,0,.025); }
 html[data-theme='light'] [class~='bg-white/10'] { background-color: rgba(0,0,0,.045); }
-html[data-theme='light'] .btn-primary { background: #171717; color: #ffffff; box-shadow: none; }
+html[data-theme='light'] .btn-primary { background: #1e3a8a; color: #ffffff; box-shadow: 0 8px 22px rgba(30,58,138,.16); }
+html[data-theme='light'] .btn-primary:hover { background: #1e40af; }
 html[data-theme='light'] .btn-secondary { background: #ffffff; color: #171717; border-color: #e5e5e5; }
 html[data-theme='light'] .input-field { background: #ffffff; color: #171717; border-color: #dedede; }
 html[data-theme='light'] .card { background: #ffffff; color: #171717; border-color: #e5e5e5; box-shadow: 0 10px 30px rgba(0,0,0,.035); }
 html[data-theme='light'] .label-field { color: #525252; }
+html[data-theme='light'] .theme-toggle { color: #1e3a8a; border-color: #dbe2ef; }
 
 html[data-theme='dark'] body { background: #101114; color: #f5f5f5; }
 html[data-theme='dark'] .bg-navy-800 { background-color: #101114 !important; }
 html[data-theme='dark'] .bg-navy-900 { background-color: #191a1e !important; }
 html[data-theme='dark'] .bg-navy-700 { background-color: #222328 !important; }
 html[data-theme='dark'] .bg-navy-600 { background-color: #191a1e !important; }
-html[data-theme='dark'] [class~='bg-brand-500'] { background-color: #f5f5f5 !important; color: #111214 !important; }
-html[data-theme='dark'] [class~='bg-brand-500/20'] { background-color: #292a30 !important; }
+html[data-theme='dark'] [class~='bg-brand-500'] { background-color: #1e3a8a !important; color: #ffffff !important; }
+html[data-theme='dark'] [class~='bg-brand-500/10'] { background-color: rgba(30,58,138,.24) !important; }
+html[data-theme='dark'] [class~='bg-brand-500/15'] { background-color: rgba(30,58,138,.30) !important; }
+html[data-theme='dark'] [class~='bg-brand-500/20'] { background-color: rgba(30,58,138,.36) !important; }
+html[data-theme='dark'] [class~='text-brand-400'],
+html[data-theme='dark'] [class~='text-brand-300'] { color: #93c5fd !important; }
+html[data-theme='dark'] [class~='border-brand-500'],
+html[data-theme='dark'] [class~='border-brand-500/20'] { border-color: rgba(147,197,253,.28) !important; }
 html[data-theme='dark'] [class~='text-white'] { color: #f5f5f5; }
 html[data-theme='dark'] [class~='text-white/90'] { color: #eeeeef; }
 html[data-theme='dark'] [class~='text-white/80'] { color: #dedee2; }
@@ -182,11 +195,20 @@ html[data-theme='dark'] [class~='border-white/10'],
 html[data-theme='dark'] [class~='border-white/5'] { border-color: #30323a !important; }
 html[data-theme='dark'] [class~='bg-white/5'] { background-color: rgba(255,255,255,.035); }
 html[data-theme='dark'] [class~='bg-white/10'] { background-color: rgba(255,255,255,.06); }
-html[data-theme='dark'] .btn-primary { background: #f5f5f5; color: #111214; box-shadow: none; }
+html[data-theme='dark'] .btn-primary { background: #1e3a8a; color: #ffffff; box-shadow: 0 8px 22px rgba(0,0,0,.2); }
+html[data-theme='dark'] .btn-primary:hover { background: #1e40af; }
 html[data-theme='dark'] .btn-secondary { background: #222328; color: #f5f5f5; border-color: #383a43; }
 html[data-theme='dark'] .input-field { background: #191a1e; color: #f5f5f5; border-color: #383a43; }
 html[data-theme='dark'] .card { background: #191a1e; color: #f5f5f5; border-color: #30323a; box-shadow: 0 12px 36px rgba(0,0,0,.18); }
 html[data-theme='dark'] .label-field { color: #c9c9d0; }
+html[data-theme='dark'] .theme-toggle { color: #bfdbfe; border-color: #383a43; }
+
+/* The home hero keeps its approved black/white pill-button design, with navy hover accents. */
+.home-page a.bg-black:hover,
+.home-page button.bg-black:hover { background-color: #1e3a8a !important; }
+.login-page .login-mark { background: #1e3a8a; color: #ffffff; }
+html.dark .login-page .login-mark,
+html[data-theme='dark'] .login-page .login-mark { background: #1e3a8a; color: #ffffff; }
 
 /* Font rules are intentionally after Tailwind layers so every component inherits them. */
 html, body, #root, body *, button, input, select, textarea {
