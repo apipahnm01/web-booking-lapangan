@@ -34,13 +34,13 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[#f5f5f3] text-[#171717] dark:bg-[#101114] dark:text-white">
+    <div className="home-page min-h-screen overflow-hidden bg-[#f5f5f3] text-[#171717] dark:bg-[#101114] dark:text-white">
       <section className="mx-auto max-w-[1500px] px-3 pb-7 pt-4 sm:px-5 lg:px-8">
         <div className="relative overflow-hidden rounded-[26px] border border-black/[0.06] bg-white shadow-[0_18px_70px_rgba(0,0,0,0.06)] dark:border-white/10 dark:bg-[#191a1e]">
           <div className="relative z-20 flex min-h-[68px] items-center justify-between gap-4 border-b border-black/[0.05] px-5 sm:px-8">
             <Link to="/" className="flex items-center gap-2 text-lg font-black tracking-[-0.06em] sm:text-xl">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black"><Dumbbell className="h-4 w-4" /></span>
-              COURT<span className="font-medium">SPACE.</span>
+              Sport<span className="font-semibold">Futsal</span>
             </Link>
             <nav className="hidden items-center gap-7 text-[13px] font-medium text-neutral-600 dark:text-neutral-300 md:flex">
               <a href="#home" className="text-black dark:text-white">Home</a>
