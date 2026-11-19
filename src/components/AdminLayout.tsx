@@ -82,12 +82,12 @@ export default function AdminLayout() {
       </aside>
 
       {/* Mobile header */}
-      <div className="admin-mobile-header lg:hidden fixed top-0 left-0 right-0 z-50 h-16 border-b flex items-center justify-between px-4">
+      <div className="admin-mobile-header lg:hidden fixed top-0 left-0 right-0 z-50 min-h-16 border-b flex items-center justify-between gap-2 px-3 sm:px-4">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center">
             <Dumbbell className="w-4 h-4 text-white" />
           </div>
-          <span className="font-display font-bold text-neutral-900">CourtSpace Admin</span>
+          <span className="admin-brand-name font-display font-bold text-neutral-900 text-sm sm:text-base">CourtSpace Admin</span>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
