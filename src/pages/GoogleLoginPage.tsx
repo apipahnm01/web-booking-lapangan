@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Dumbbell, Shield, AlertCircle, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function GoogleLoginPage() {
   const location = useLocation();
@@ -75,7 +76,8 @@ export default function GoogleLoginPage() {
     if (authError) { setError(authError.message); setLoading(false); }
   }
 
-  return <div className="min-h-screen flex items-center justify-center bg-[#f5f5f3] px-4">
+  return <div className="login-page min-h-screen flex items-center justify-center bg-[#f5f5f3] px-4 py-8">
+    <div className="fixed right-4 top-4 z-50"><ThemeToggle /></div>
     <div className="relative w-full max-w-md text-center">
       <div className="w-16 h-16 rounded-2xl bg-black flex items-center justify-center mx-auto mb-4">
         {isAdminPath ? <Shield className="w-8 h-8 text-white" /> : <Dumbbell className="w-8 h-8 text-white" />}
