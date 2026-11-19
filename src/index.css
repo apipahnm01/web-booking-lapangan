@@ -196,3 +196,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Inter', system-ui, sans-serif !important;
   font-weight: 800;
 }
+
+html[data-theme='light'] [class~='bg-brand-500'] *,
+html[data-theme='light'] a[class~='bg-brand-500'],
+html[data-theme='light'] button[class~='bg-brand-500'] { color: #ffffff !important; }
+html[data-theme='dark'] [class~='bg-brand-500'] *,
+html[data-theme='dark'] a[class~='bg-brand-500'],
+html[data-theme='dark'] button[class~='bg-brand-500'] { color: #111214 !important; }
