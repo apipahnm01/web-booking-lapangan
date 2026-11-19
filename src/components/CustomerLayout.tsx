@@ -63,9 +63,9 @@ export default function CustomerLayout() {
     <div className="min-h-screen flex flex-col bg-[#f5f5f3]">
       {!onHome && (<header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/95 shadow-sm backdrop-blur-xl">
         <div className="mx-auto flex min-h-[76px] max-w-7xl items-center justify-between gap-3 px-5 py-3 md:px-10">
-          <Link to="/" className="flex shrink-0 items-center gap-2.5">
+          <Link to="/" className="flex shrink-0 items-center gap-2">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-black shadow-lg shadow-black/10"><Dumbbell className="h-6 w-6 text-white" /></div>
-            <span className="text-xl font-extrabold tracking-tight text-neutral-900 md:text-2xl">Sport<span className="text-neutral-500">Futsal</span></span>
+            <span className="text-lg font-extrabold tracking-tight text-neutral-900 sm:text-xl md:text-2xl">Sport<span className="text-neutral-500">Futsal</span></span>
           </Link>
           <nav className="hidden items-center gap-7 lg:flex">
             <Link to="/" className={`text-sm font-semibold transition ${onHome ? 'text-neutral-800' : 'text-slate-600 hover:text-blue-700'}`}>Home</Link>
