@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* Apply Barlow consistently across every page and component. */
 html, body, #root, body *, button, input, select, textarea {
-  font-family: 'Barlow', system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -249,3 +249,204 @@ html[data-theme='dark'] .admin-main textarea { background:#24252b !important; co
 html[data-theme='light'] .admin-main input,
 html[data-theme='light'] .admin-main select,
 html[data-theme='light'] .admin-main textarea { background:#fafaf9 !important; color:#171717 !important; border-color:#e5e5e5 !important; }
+
+
+/* CourtSpace responsive design system — shared by every route */
+:root {
+  --cs-page: #f5f6f8;
+  --cs-surface: #ffffff;
+  --cs-surface-soft: #f8fafc;
+  --cs-text: #172033;
+  --cs-muted: #64748b;
+  --cs-border: #e2e8f0;
+  --cs-accent: #172033;
+  --cs-accent-text: #ffffff;
+  --cs-shadow: 0 12px 34px rgba(15,23,42,.055);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+html[data-theme='light'] { color-scheme: light; }
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --cs-page: #10131a;
+  --cs-surface: #191e29;
+  --cs-surface-soft: #202735;
+  --cs-text: #f1f5f9;
+  --cs-muted: #a5b1c2;
+  --cs-border: #303b4d;
+  --cs-accent: #f1f5f9;
+  --cs-accent-text: #111827;
+  --cs-shadow: 0 14px 34px rgba(0,0,0,.2);
+}
+html, body, #root { min-height:100%; }
+body { background:var(--cs-page) !important; color:var(--cs-text); font-size:15px; line-height:1.55; }
+button, input, select, textarea { font:inherit; }
+button, a { -webkit-tap-highlight-color:transparent; }
+:focus-visible { outline:3px solid rgba(59,130,246,.45); outline-offset:2px; }
+::selection { background:rgba(59,130,246,.2); }
+
+/* Theme toggle is consistent in customer and admin headers. */
+.theme-toggle {
+  min-height:40px;
+  border-color:var(--cs-border) !important;
+  background:var(--cs-surface) !important;
+  color:var(--cs-text) !important;
+  white-space:nowrap;
+}
+.theme-toggle:hover { background:var(--cs-surface-soft) !important; }
+
+/* Customer routes: legible surfaces, forms and buttons. */
+html[data-theme='light'] .booking-page { color:#172033; }
+html[data-theme='light'] .booking-page .card {
+  background:#fff !important; color:#172033 !important; border:1px solid #e2e8f0 !important;
+  box-shadow:var(--cs-shadow) !important;
+}
+html[data-theme='dark'] .booking-page .card {
+  background:#191e29 !important; color:#f1f5f9 !important; border:1px solid #303b4d !important;
+  box-shadow:var(--cs-shadow) !important;
+}
+html[data-theme='light'] .booking-page h1,
+html[data-theme='light'] .booking-page h2,
+html[data-theme='light'] .booking-page h3,
+html[data-theme='light'] .booking-page .text-white { color:#172033 !important; }
+html[data-theme='light'] .booking-page .text-white\/50,
+html[data-theme='light'] .booking-page .text-white\/60,
+html[data-theme='light'] .booking-page .text-white\/70,
+html[data-theme='light'] .booking-page .text-white\/40 { color:#64748b !important; }
+html[data-theme='light'] .booking-page .text-brand-400 { color:#1d4ed8 !important; }
+html[data-theme='light'] .booking-page [class*="bg-navy-700"],
+html[data-theme='light'] .booking-page [class*="bg-navy-600"] { background:#f1f5f9 !important; }
+html[data-theme='light'] .booking-page [class*="border-white/"] { border-color:#e2e8f0 !important; }
+html[data-theme='light'] .booking-page .input-field,
+html[data-theme='light'] .booking-page input,
+html[data-theme='light'] .booking-page select { background:#fff !important; color:#172033 !important; border-color:#cbd5e1 !important; }
+html[data-theme='light'] .booking-page .label-field { color:#334155 !important; font-weight:600; }
+html[data-theme='light'] .booking-page .btn-secondary { background:#fff !important; color:#172033 !important; border:1px solid #cbd5e1 !important; }
+html[data-theme='light'] .booking-page .btn-primary { background:#172033 !important; color:#fff !important; }
+html[data-theme='light'] .booking-page button[class*="bg-brand-500"] { background:#172033 !important; color:#fff !important; }
+html[data-theme='light'] .booking-page button[class*="bg-navy-700"] { background:#f1f5f9 !important; color:#334155 !important; }
+html[data-theme='dark'] .booking-page { color:#f1f5f9; }
+html[data-theme='dark'] .booking-page h1,
+html[data-theme='dark'] .booking-page h2,
+html[data-theme='dark'] .booking-page h3,
+html[data-theme='dark'] .booking-page .text-white { color:#f1f5f9 !important; }
+html[data-theme='dark'] .booking-page .text-white\/50,
+html[data-theme='dark'] .booking-page .text-white\/60,
+html[data-theme='dark'] .booking-page .text-white\/70,
+html[data-theme='dark'] .booking-page .text-white\/40 { color:#a5b1c2 !important; }
+html[data-theme='dark'] .booking-page .text-brand-400 { color:#93c5fd !important; }
+html[data-theme='dark'] .booking-page [class*="bg-navy-700"],
+html[data-theme='dark'] .booking-page [class*="bg-navy-600"] { background:#202735 !important; }
+html[data-theme='dark'] .booking-page [class*="border-white/"] { border-color:#303b4d !important; }
+html[data-theme='dark'] .booking-page .input-field,
+html[data-theme='dark'] .booking-page input,
+html[data-theme='dark'] .booking-page select { background:#202735 !important; color:#f1f5f9 !important; border-color:#3b4658 !important; }
+html[data-theme='dark'] .booking-page .label-field { color:#d5deea !important; font-weight:600; }
+html[data-theme='dark'] .booking-page .btn-secondary { background:#202735 !important; color:#f1f5f9 !important; border:1px solid #3b4658 !important; }
+html[data-theme='dark'] .booking-page .btn-primary { background:#f1f5f9 !important; color:#111827 !important; }
+html[data-theme='dark'] .booking-page button[class*="bg-brand-500"] { background:#e2e8f0 !important; color:#111827 !important; }
+html[data-theme='dark'] .booking-page button[class*="bg-navy-700"] { background:#202735 !important; color:#cbd5e1 !important; }
+
+/* Booking flow responsive layout */
+.booking-page { width:100%; min-width:0; }
+.booking-page .booking-progress { gap:clamp(3px,1.5vw,12px); }
+.booking-page .booking-progress > div { min-width:0; }
+.booking-page .booking-progress > div > div:first-child { flex-shrink:0; }
+.booking-page .booking-actions > button { min-height:48px; }
+.booking-page input, .booking-page select { min-height:46px; max-width:100%; }
+.booking-page button { touch-action:manipulation; }
+@media (max-width:640px) {
+  .booking-page { padding-top:18px !important; padding-bottom:32px !important; }
+  .booking-page h2 { font-size:1.35rem !important; line-height:1.3; }
+  .booking-page .booking-progress { margin-bottom:22px; padding:10px 8px; border-radius:16px; }
+  .booking-page .booking-progress > div { flex:1; }
+  .booking-page .booking-progress > div > div:first-child { width:29px; height:29px; font-size:12px; }
+  .booking-page .booking-progress .h-0\.5 { margin-left:4px; margin-right:4px; }
+  .booking-page .booking-progress span { font-size:10px; }
+  .booking-page .card { padding:16px !important; border-radius:16px; }
+  .booking-page .grid.grid-cols-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .booking-page .booking-actions { display:flex; flex-direction:column-reverse; }
+  .booking-page .booking-actions button { width:100%; justify-content:center; }
+  .booking-page .flex.gap-3:not(.booking-progress) { flex-wrap:wrap; }
+  .booking-page .flex.gap-3:not(.booking-progress) > button { flex:1 1 100%; }
+  .booking-page .text-3xl { font-size:1.55rem; }
+}
+
+/* Admin shell: consistent contrast for every dashboard, form, table and dialog. */
+.admin-shell { background:var(--cs-page) !important; color:var(--cs-text); min-height:100dvh; }
+.admin-sidebar, .admin-mobile-header, .admin-mobile-menu, .admin-brand, .admin-sidebar-footer {
+  background:var(--cs-surface) !important; color:var(--cs-text) !important; border-color:var(--cs-border) !important;
+}
+.admin-brand-name { color:var(--cs-text) !important; }
+.admin-brand-accent { color:var(--cs-muted) !important; }
+.admin-main { min-width:0; background:var(--cs-page) !important; color:var(--cs-text); }
+.admin-main > div { min-width:0; }
+.admin-main .card {
+  background:var(--cs-surface) !important; color:var(--cs-text) !important;
+  border:1px solid var(--cs-border) !important; border-radius:18px;
+  box-shadow:var(--cs-shadow) !important;
+}
+.admin-main h1,.admin-main h2,.admin-main h3,.admin-main h4 { color:var(--cs-text) !important; letter-spacing:-.02em; }
+.admin-main p.text-white\/40,.admin-main p.text-white\/50,.admin-main p.text-white\/60,
+.admin-main span.text-white\/40,.admin-main span.text-white\/50,.admin-main span.text-white\/60,
+.admin-main td.text-white\/70,.admin-main td.text-white\/80,
+.admin-main th.text-white\/40 { color:var(--cs-muted) !important; }
+.admin-main p.text-white:not([class*="text-white/"]),
+.admin-main span.text-white:not([class*="text-white/"]),
+.admin-main td.text-white:not([class*="text-white/"]) { color:var(--cs-text) !important; }
+.admin-main [class*="bg-navy-700"],.admin-main [class*="bg-navy-600"],.admin-main [class*="bg-navy-800"] {
+  background:var(--cs-surface-soft) !important;
+}
+.admin-main [class*="border-white/"] { border-color:var(--cs-border) !important; }
+.admin-main input:not([type="checkbox"]):not([type="radio"]),
+.admin-main select,.admin-main textarea {
+  background:var(--cs-surface-soft) !important; color:var(--cs-text) !important;
+  border:1px solid var(--cs-border) !important; border-radius:11px; min-height:42px;
+}
+.admin-main input::placeholder,.admin-main textarea::placeholder { color:var(--cs-muted) !important; }
+.admin-main .btn-secondary {
+  background:var(--cs-surface) !important; color:var(--cs-text) !important;
+  border:1px solid var(--cs-border) !important; box-shadow:none !important;
+}
+.admin-main .btn-primary { background:var(--cs-accent) !important; color:var(--cs-accent-text) !important; }
+.admin-main table { color:var(--cs-text); }
+.admin-main thead { background:var(--cs-surface-soft) !important; }
+.admin-main th { color:var(--cs-muted) !important; font-weight:700; }
+.admin-main td { color:var(--cs-text); }
+.admin-main tr { border-color:var(--cs-border) !important; }
+.admin-sidebar nav a { color:var(--cs-muted) !important; }
+.admin-sidebar nav a:hover,.admin-mobile-menu nav a:hover { background:var(--cs-surface-soft) !important; color:var(--cs-text) !important; }
+.admin-sidebar nav a.bg-black,.admin-mobile-menu nav a.bg-black { background:var(--cs-accent) !important; color:var(--cs-accent-text) !important; }
+.admin-menu-trigger { color:var(--cs-text) !important; }
+.admin-mobile-menu nav { gap:6px; }
+.admin-mobile-menu nav a { color:var(--cs-muted) !important; }
+.admin-mobile-menu nav a.bg-black { color:var(--cs-accent-text) !important; }
+html[data-theme='light'] .admin-main [class*="text-brand-"] { color:#1d4ed8 !important; }
+html[data-theme='dark'] .admin-main [class*="text-brand-"] { color:#93c5fd !important; }
+html[data-theme='light'] .admin-main [class*="bg-brand-"] { background-color:#eff6ff !important; }
+html[data-theme='dark'] .admin-main [class*="bg-brand-"] { background-color:#26364d !important; }
+html[data-theme='light'] .admin-main .bg-black { background:#172033 !important; color:#fff !important; }
+html[data-theme='dark'] .admin-main .bg-black { background:#f1f5f9 !important; color:#111827 !important; }
+.admin-main .overflow-x-auto { max-width:100%; overscroll-behavior-x:contain; }
+.admin-main table { min-width:560px; }
+@media (max-width:1023px) {
+  .admin-sidebar { display:none !important; }
+  .admin-main { margin-left:0 !important; padding-top:64px !important; }
+}
+@media (max-width:640px) {
+  .admin-mobile-header { min-height:60px !important; height:60px !important; }
+  .admin-mobile-header .theme-toggle { min-height:38px; padding:7px 10px; font-size:12px; }
+  .admin-main { padding-top:60px !important; }
+  .admin-main > div { padding:18px 14px !important; }
+  .admin-main h1 { font-size:1.45rem !important; }
+  .admin-main h2 { font-size:1.05rem !important; }
+  .admin-main .grid.grid-cols-2 { gap:10px !important; }
+  .admin-main .grid.grid-cols-2 > * { min-width:0; }
+  .admin-main .card { padding:14px !important; border-radius:15px; }
+  .admin-main .btn-primary,.admin-main .btn-secondary { min-height:44px; padding:10px 14px; }
+  .admin-main table { min-width:540px; }
+  .admin-mobile-menu { padding-bottom:calc(20px + env(safe-area-inset-bottom)) !important; }
+  .admin-main .fixed.inset-0 [role="dialog"] { max-height:calc(100dvh - 24px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
