@@ -450,3 +450,53 @@ html[data-theme='dark'] .admin-main .bg-black { background:#f1f5f9 !important; c
 @media (prefers-reduced-motion: reduce) {
   *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
 }
+
+
+/* Customer inner pages and sign-in screens follow the same accessible palette. */
+html[data-theme='light'] .customer-shell[data-route='inner'] { background:var(--cs-page) !important; color:var(--cs-text) !important; }
+html[data-theme='dark'] .customer-shell[data-route='inner'] { background:var(--cs-page) !important; color:var(--cs-text) !important; }
+html[data-theme='light'] .customer-shell[data-route='inner'] main { color:var(--cs-text); }
+html[data-theme='dark'] .customer-shell[data-route='inner'] main { color:var(--cs-text); }
+html[data-theme='light'] .customer-shell[data-route='inner'] main .card { background:var(--cs-surface) !important; color:var(--cs-text) !important; border-color:var(--cs-border) !important; box-shadow:var(--cs-shadow); }
+html[data-theme='dark'] .customer-shell[data-route='inner'] main .card { background:var(--cs-surface) !important; color:var(--cs-text) !important; border-color:var(--cs-border) !important; box-shadow:var(--cs-shadow); }
+html[data-theme='light'] .customer-shell[data-route='inner'] main h1,
+html[data-theme='light'] .customer-shell[data-route='inner'] main h2,
+html[data-theme='light'] .customer-shell[data-route='inner'] main h3,
+html[data-theme='light'] .customer-shell[data-route='inner'] main .text-white { color:var(--cs-text) !important; }
+html[data-theme='light'] .customer-shell[data-route='inner'] main .text-white\/40,
+html[data-theme='light'] .customer-shell[data-route='inner'] main .text-white\/50,
+html[data-theme='light'] .customer-shell[data-route='inner'] main .text-white\/60,
+html[data-theme='light'] .customer-shell[data-route='inner'] main .text-white\/70 { color:var(--cs-muted) !important; }
+html[data-theme='dark'] .customer-shell[data-route='inner'] main h1,
+html[data-theme='dark'] .customer-shell[data-route='inner'] main h2,
+html[data-theme='dark'] .customer-shell[data-route='inner'] main h3,
+html[data-theme='dark'] .customer-shell[data-route='inner'] main .text-white { color:var(--cs-text) !important; }
+html[data-theme='dark'] .customer-shell[data-route='inner'] main .text-white\/40,
+html[data-theme='dark'] .customer-shell[data-route='inner'] main .text-white\/50,
+html[data-theme='dark'] .customer-shell[data-route='inner'] main .text-white\/60,
+html[data-theme='dark'] .customer-shell[data-route='inner'] main .text-white\/70 { color:var(--cs-muted) !important; }
+html[data-theme='light'] .customer-shell[data-route='inner'] main .text-brand-400 { color:#1d4ed8 !important; }
+html[data-theme='dark'] .customer-shell[data-route='inner'] main .text-brand-400 { color:#93c5fd !important; }
+html[data-theme='light'] .customer-shell[data-route='inner'] main [class*="bg-navy-700"],
+html[data-theme='light'] .customer-shell[data-route='inner'] main [class*="bg-navy-600"] { background:var(--cs-surface-soft) !important; }
+html[data-theme='dark'] .customer-shell[data-route='inner'] main [class*="bg-navy-700"],
+html[data-theme='dark'] .customer-shell[data-route='inner'] main [class*="bg-navy-600"] { background:var(--cs-surface-soft) !important; }
+.customer-shell[data-route='inner'] main input,
+.customer-shell[data-route='inner'] main select,
+.customer-shell[data-route='inner'] main textarea { min-height:44px; border-radius:11px; }
+html[data-theme='light'] .customer-shell[data-route='inner'] main input,
+html[data-theme='light'] .customer-shell[data-route='inner'] main select,
+html[data-theme='light'] .customer-shell[data-route='inner'] main textarea { background:#fff !important; color:var(--cs-text) !important; border-color:var(--cs-border) !important; }
+html[data-theme='dark'] .customer-shell[data-route='inner'] main input,
+html[data-theme='dark'] .customer-shell[data-route='inner'] main select,
+html[data-theme='dark'] .customer-shell[data-route='inner'] main textarea { background:var(--cs-surface-soft) !important; color:var(--cs-text) !important; border-color:var(--cs-border) !important; }
+.login-page .card { background:var(--cs-surface) !important; color:var(--cs-text) !important; border:1px solid var(--cs-border) !important; box-shadow:var(--cs-shadow); }
+html[data-theme='light'] .login-page h1 { color:var(--cs-text) !important; }
+html[data-theme='dark'] .login-page h1 { color:var(--cs-text) !important; }
+.login-page p { color:var(--cs-muted) !important; }
+.login-page .theme-toggle { background:var(--cs-surface) !important; color:var(--cs-text) !important; }
+@media(max-width:640px) {
+ .customer-shell header .theme-toggle { min-height:38px; padding:7px 9px; font-size:11px; }
+ .customer-shell header .theme-toggle span { display:none; }
+ .login-page { align-items:center; }
+}
