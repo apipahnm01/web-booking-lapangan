@@ -242,8 +242,8 @@ html.dark .home-page .rounded-xl.border {
 /* CTA contrast: force readable text on the dark/light pill buttons. */
 .home-page a.bg-black,
 .home-page button.bg-black { color: #fff !important; }
-html[data-theme='dark'] .home-page a.dark\\:bg-white,
-html[data-theme='dark'] .home-page button.dark\\:bg-white { color: #111214 !important; }
+html[data-theme='dark'] .home-page a.bg-black,
+html[data-theme='dark'] .home-page button.bg-black { color: #111214 !important; }
 
 /* Admin accent: replace decorative green brand text with calm professional blue.
    Semantic success states (paid/check-in) keep their green status color. */
