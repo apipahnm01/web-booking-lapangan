@@ -156,3 +156,34 @@ table { border-collapse:collapse; }
 ::-webkit-scrollbar { width:8px; height:8px; }
 ::-webkit-scrollbar-track { background:var(--page); }
 ::-webkit-scrollbar-thumb { background:var(--subtle); border-radius:99px; }
+
+/* Customer inner pages (booking lookup, forms and account screens) */
+.customer-shell main .card { background:var(--surface); color:var(--text); border-color:var(--line); box-shadow:var(--shadow); }
+.customer-shell main h1,.customer-shell main h2,.customer-shell main h3 { color:var(--text); }
+.customer-shell main p[class*="text-white"],.customer-shell main span[class*="text-white"],
+.customer-shell main label[class*="text-white"],.customer-shell main td[class*="text-white"] { color:var(--muted) !important; }
+.customer-shell main [class~="text-white"] { color:var(--text) !important; }
+.customer-shell main [class~="text-brand-400"] { color:var(--accent) !important; }
+.customer-shell main [class~="bg-navy-700"],.customer-shell main [class~="bg-navy-700/50"] { background:var(--surface-muted) !important; }
+.customer-shell main [class~="border-white/5"],.customer-shell main [class~="border-white/10"] { border-color:var(--line) !important; }
+.customer-shell main [class~="bg-brand-500"] { background:var(--primary) !important; color:var(--primary-contrast) !important; }
+.customer-shell main .btn-primary { background:var(--primary); color:var(--primary-contrast); }
+.customer-shell main .btn-secondary { background:var(--surface); color:var(--text); }
+.customer-shell main input,.customer-shell main select,.customer-shell main textarea { background:var(--surface); color:var(--text); border-color:var(--line); }
+.customer-shell main input::placeholder,.customer-shell main textarea::placeholder { color:var(--subtle); opacity:1; }
+html[data-theme='dark'] .customer-shell main .card { background:var(--surface); }
+html[data-theme='dark'] .admin-main .card { background:var(--surface); }
+html[data-theme='dark'] .admin-sidebar a:not([class*="bg-black"]) { color:var(--muted); }
+html[data-theme='dark'] .admin-sidebar a[class*="bg-black"] { color:#fff !important; }
+@media (max-width: 480px) {
+  .theme-toggle { width:40px; min-width:40px; padding:8px; gap:0; }
+  .theme-toggle span { display:none; }
+  .customer-shell header .max-w-7xl > div:last-child { gap:6px; }
+  .customer-shell header a[href="/login"] span { display:none; }
+  .customer-shell header a[href="/login"] { width:40px; min-width:40px; justify-content:center; padding:9px; }
+  .customer-shell header a[href="/login"] svg { margin:0; }
+  .customer-shell header .max-w-7xl { gap:8px; }
+  .customer-shell header .max-w-7xl > a:first-child { gap:6px; }
+  .customer-shell header .max-w-7xl > a:first-child span { font-size:15px; }
+  .admin-mobile-header .admin-brand-name { font-size:13px; }
+}
