@@ -245,19 +245,18 @@ html.dark .home-page .rounded-xl.border {
 html[data-theme='dark'] .home-page a.bg-black,
 html[data-theme='dark'] .home-page button.bg-black { color: #111214 !important; }
 
-/* Admin accent: replace decorative green brand text with calm professional blue.
-   Semantic success states (paid/check-in) keep their green status color. */
-html[data-theme='light'] .admin-shell [class~='text-brand-400'] { color: #2563eb !important; }
+/* Admin accent: navy palette. Semantic payment/check-in success remains green. */
+html[data-theme='light'] .admin-shell [class~='text-brand-400'] { color: #1e3a8a !important; }
 html[data-theme='light'] .admin-shell [class~='text-brand-300'] { color: #1d4ed8 !important; }
-html[data-theme='light'] .admin-shell [class~='bg-brand-500'] { background-color: #2563eb !important; color: #fff !important; }
-html[data-theme='light'] .admin-shell [class~='bg-brand-500/10'] { background-color: rgba(37,99,235,.09) !important; }
-html[data-theme='light'] .admin-shell [class~='bg-brand-500/15'] { background-color: rgba(37,99,235,.12) !important; }
-html[data-theme='light'] .admin-shell [class~='bg-brand-500/20'] { background-color: rgba(37,99,235,.14) !important; }
-html[data-theme='light'] .admin-shell [class~='border-brand-500/20'] { border-color: rgba(37,99,235,.24) !important; }
-html[data-theme='dark'] .admin-shell [class~='text-brand-400'] { color: #60a5fa !important; }
-html[data-theme='dark'] .admin-shell [class~='text-brand-300'] { color: #93c5fd !important; }
-html[data-theme='dark'] .admin-shell [class~='bg-brand-500'] { background-color: #2563eb !important; color: #fff !important; }
-html[data-theme='dark'] .admin-shell [class~='bg-brand-500/10'] { background-color: rgba(59,130,246,.12) !important; }
-html[data-theme='dark'] .admin-shell [class~='bg-brand-500/15'] { background-color: rgba(59,130,246,.16) !important; }
-html[data-theme='dark'] .admin-shell [class~='bg-brand-500/20'] { background-color: rgba(59,130,246,.18) !important; }
-html[data-theme='dark'] .admin-shell [class~='border-brand-500/20'] { border-color: rgba(96,165,250,.25) !important; }
+html[data-theme='light'] .admin-shell [class~='bg-brand-500'] { background-color: #1e3a8a !important; color: #fff !important; }
+html[data-theme='light'] .admin-shell [class~='bg-brand-500/10'] { background-color: rgba(30,58,138,.08) !important; }
+html[data-theme='light'] .admin-shell [class~='bg-brand-500/15'] { background-color: rgba(30,58,138,.11) !important; }
+html[data-theme='light'] .admin-shell [class~='bg-brand-500/20'] { background-color: rgba(30,58,138,.14) !important; }
+html[data-theme='light'] .admin-shell [class~='border-brand-500/20'] { border-color: rgba(30,58,138,.22) !important; }
+html[data-theme='dark'] .admin-shell [class~='text-brand-400'] { color: #93c5fd !important; }
+html[data-theme='dark'] .admin-shell [class~='text-brand-300'] { color: #bfdbfe !important; }
+html[data-theme='dark'] .admin-shell [class~='bg-brand-500'] { background-color: #1e3a8a !important; color: #fff !important; }
+html[data-theme='dark'] .admin-shell [class~='bg-brand-500/10'] { background-color: rgba(30,58,138,.24) !important; }
+html[data-theme='dark'] .admin-shell [class~='bg-brand-500/15'] { background-color: rgba(30,58,138,.30) !important; }
+html[data-theme='dark'] .admin-shell [class~='bg-brand-500/20'] { background-color: rgba(30,58,138,.36) !important; }
+html[data-theme='dark'] .admin-shell [class~='border-brand-500/20'] { border-color: rgba(147,197,253,.25) !important; }
