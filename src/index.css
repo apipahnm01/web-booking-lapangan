@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* Apply Barlow consistently across every page and component. */
+/* Use the same readable font on the landing, booking, login and admin screens. */
 html, body, #root, body *, button, input, select, textarea {
-  font-family: 'Barlow', system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Barlow', system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 800;
 }
 
@@ -99,4 +99,49 @@ html[data-theme='light'] ::-webkit-scrollbar-thumb { background: #b5c9bd; }
   .booking-page input, .booking-page select, .booking-page textarea { font-size: 16px; }
   .booking-page button, .admin-main button { min-height: 44px; }
   .customer-shell main { min-width: 0; }
+}
+
+
+/* Login page uses the same global light/dark theme and always offers a route home. */
+.login-page {
+  background: #f5f5f3;
+  color: #171717;
+  transition: background-color .2s ease, color .2s ease;
+}
+.login-page .login-back {
+  border-color: #e5e5e5;
+  color: #404040;
+  background: rgba(255,255,255,.8);
+}
+.login-page .login-back:hover { background: #171717; color: #fff; border-color: #171717; }
+.login-page h1 { color: #171717; }
+.login-page .card { background: #fff; color: #171717; border-color: #e5e5e5; }
+.login-page .card p { color: #737373; }
+.login-page .login-mark { background: #171717; color: #fff; }
+html.dark .login-page, html[data-theme='dark'] .login-page {
+  background: #101114 !important;
+  color: #f5f5f5;
+}
+html.dark .login-page h1, html[data-theme='dark'] .login-page h1 { color: #f5f5f5 !important; }
+html.dark .login-page .login-back, html[data-theme='dark'] .login-page .login-back {
+  color: #e5e5e5; background: #191a1e; border-color: #35363d;
+}
+html.dark .login-page .login-back:hover, html[data-theme='dark'] .login-page .login-back:hover {
+  background: #fff; color: #111; border-color: #fff;
+}
+html.dark .login-page .card, html[data-theme='dark'] .login-page .card {
+  background: #191a1e; color: #f5f5f5; border-color: #30323a;
+}
+html.dark .login-page .card p, html[data-theme='dark'] .login-page .card p { color: #a1a1aa; }
+html.dark .login-page .login-mark, html[data-theme='dark'] .login-page .login-mark {
+  background: #f5f5f5; color: #111;
+}
+/* Make the landing page background and sections follow the selected theme everywhere. */
+html.dark body, html[data-theme='dark'] body { background: #101114; color: #f5f5f5; }
+html.dark .customer-shell, html[data-theme='dark'] .customer-shell { background: #101114; color: #f5f5f5; }
+html.dark .admin-shell, html[data-theme='dark'] .admin-shell { background: #101114; color: #f5f5f5; }
+@media (max-width: 640px) {
+  .login-page { align-items: flex-start; padding-top: 5.5rem; }
+  .login-page .login-back { margin-bottom: 1.5rem; }
+  .customer-shell footer { padding-left: 1rem; padding-right: 1rem; }
 }
