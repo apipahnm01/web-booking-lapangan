@@ -60,7 +60,7 @@ export default function CustomerLayout() {
   const onHome = location.pathname === '/';
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f5f5f3]">
+    <div className="customer-shell min-h-screen flex flex-col bg-[#f5f5f3]" data-route={onHome ? "home" : "inner"}>
       {!onHome && (<header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/95 shadow-sm backdrop-blur-xl">
         <div className="mx-auto flex min-h-[76px] max-w-7xl items-center justify-between gap-3 px-5 py-3 md:px-10">
           <Link to="/" className="flex shrink-0 items-center gap-2">
