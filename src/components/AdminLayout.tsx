@@ -56,12 +56,12 @@ export default function AdminLayout() {
   );
 
   return (
-    <div className="min-h-screen flex bg-[#f5f5f3]">
+    <div className="admin-shell min-h-screen flex">
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-white/10 fixed h-screen">
-        <div className="h-16 flex items-center justify-between gap-2 px-5 border-b border-white/10">
+      <aside className="admin-sidebar hidden lg:flex flex-col w-64 fixed h-screen">
+        <div className="admin-brand h-16 flex items-center justify-between gap-2 px-5 border-b">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center">
               <Dumbbell className="w-5 h-5 text-white" />
             </div>
             <span className="font-display font-bold text-lg text-white">
@@ -73,7 +73,7 @@ export default function AdminLayout() {
         <div className="flex-1 overflow-y-auto p-4">
           {navContent}
         </div>
-        <div className="p-4 border-t border-white/10">
+        <div className="admin-sidebar-footer p-4 border-t">
           <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 transition-all w-full">
             <LogOut className="w-5 h-5" />
             Keluar
@@ -82,7 +82,7 @@ export default function AdminLayout() {
       </aside>
 
       {/* Mobile header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 h-16 bg-navy-900 border-b border-white/10 flex items-center justify-between px-4">
+      <div className="admin-mobile-header lg:hidden fixed top-0 left-0 right-0 z-50 h-16 border-b flex items-center justify-between px-4">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center">
             <Dumbbell className="w-4 h-4 text-white" />
@@ -91,7 +91,7 @@ export default function AdminLayout() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 rounded-lg hover:bg-white/5 text-white">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="admin-menu-trigger p-2 rounded-lg">
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
@@ -114,7 +114,7 @@ export default function AdminLayout() {
       )}
 
       {/* Main content */}
-      <div className="flex-1 lg:ml-64 pt-16 lg:pt-0">
+      <div className="admin-main flex-1 lg:ml-64 pt-16 lg:pt-0">
         <Outlet />
       </div>
     </div>
