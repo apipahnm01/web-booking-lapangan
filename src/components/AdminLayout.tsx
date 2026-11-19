@@ -64,8 +64,8 @@ export default function AdminLayout() {
             <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center">
               <Dumbbell className="w-5 h-5 text-white" />
             </div>
-            <span className="font-display font-bold text-lg text-white">
-              Sport<span className="text-brand-400">Admin</span>
+            <span className="font-display font-bold text-lg text-neutral-900">
+              Sport<span className="text-neutral-500">Admin</span>
             </span>
           </div>
           <ThemeToggle />
@@ -84,7 +84,7 @@ export default function AdminLayout() {
       {/* Mobile header */}
       <div className="admin-mobile-header lg:hidden fixed top-0 left-0 right-0 z-50 min-h-16 border-b flex items-center justify-between gap-2 px-3 sm:px-4">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-black flex items-center justify-center">
             <Dumbbell className="w-4 h-4 text-white" />
           </div>
           <span className="admin-brand-name font-display font-bold text-neutral-900 text-sm sm:text-base">CourtSpace Admin</span>
@@ -101,7 +101,7 @@ export default function AdminLayout() {
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-40 bg-black/50" onClick={() => setMobileOpen(false)}>
           <div
-            className="absolute left-0 top-16 bottom-0 w-64 bg-navy-900 border-r border-white/10 p-4 overflow-y-auto"
+            className="admin-mobile-drawer absolute left-0 top-16 bottom-0 w-64 border-r p-4 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {navContent}
