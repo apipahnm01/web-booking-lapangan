@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
 type Theme = 'light' | 'dark';
-const STORAGE_KEY = 'sportfutsal-theme-v2';
+const STORAGE_KEY = 'sportfutsal-theme-v3';
+const THEME_EVENT = 'sportfutsal-theme-change';
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(() => {
@@ -16,7 +17,21 @@ export default function ThemeToggle() {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     window.localStorage.setItem(STORAGE_KEY, theme);
     document.documentElement.style.colorScheme = theme;
+    window.dispatchEvent(new CustomEvent(THEME_EVENT, { detail: theme }));
   }, [theme]);
+
+  useEffect(() => {
+    const syncTheme = (event: Event) => {
+      const next = (event as CustomEvent<Theme>).detail;
+      if (next === 'light' || next === 'dark') setTheme(next);
+    };
+    const syncStorage = (event: StorageEvent) => {
+      if (event.key === STORAGE_KEY) setTheme(event.newValue === 'dark' ? 'dark' : 'light');
+    };
+    window.addEventListener(THEME_EVENT, syncTheme);
+    window.addEventListener('storage', syncStorage);
+    return () => { window.removeEventListener(THEME_EVENT, syncTheme); window.removeEventListener('storage', syncStorage); };
+  }, []);
 
   const isLight = theme === 'light';
 
