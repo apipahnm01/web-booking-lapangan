@@ -30,6 +30,8 @@ export default function BookingPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    setDate(searchParams.get('date') || '');
+    setStartTime(searchParams.get('time') || '');
     const s = searchParams.get('sport');
     const requestedCourtId = searchParams.get('court');
     const requestedCourt = requestedCourtId
