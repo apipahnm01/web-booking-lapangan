@@ -65,7 +65,7 @@ export default function AdminLayout() {
               <Dumbbell className="w-5 h-5 text-white" />
             </div>
             <span className="font-display font-bold text-lg text-white">
-              Sport<span className="text-brand-400">Admin</span>
+              COURT<span className="text-brand-400">SPACE.</span>
             </span>
           </div>
           <ThemeToggle />
@@ -87,7 +87,7 @@ export default function AdminLayout() {
           <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center">
             <Dumbbell className="w-4 h-4 text-white" />
           </div>
-          <span className="font-display font-bold text-white">SportAdmin</span>
+          <span className="font-display font-bold text-white">COURTSPACE.</span>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
