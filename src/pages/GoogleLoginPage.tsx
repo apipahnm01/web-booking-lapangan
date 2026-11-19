@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Dumbbell, Shield, AlertCircle, Loader2, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 import ThemeToggle from '@/components/ThemeToggle';
 
@@ -84,7 +83,7 @@ export default function GoogleLoginPage() {
         <ArrowLeft className="h-4 w-4" /> Kembali ke beranda
       </Link>
       <div className="text-center">
-      <div className="w-16 h-16 rounded-2xl bg-black flex items-center justify-center mx-auto mb-4">
+      <div className="login-mark w-16 h-16 rounded-2xl bg-black flex items-center justify-center mx-auto mb-4">
         {isAdminPath ? <Shield className="w-8 h-8 text-white" /> : <Dumbbell className="w-8 h-8 text-white" />}
       </div>
       <h1 className="text-2xl font-display font-bold text-neutral-900">{isAdminPath ? 'Login Admin' : 'Masuk ke CourtSpace'}</h1>
