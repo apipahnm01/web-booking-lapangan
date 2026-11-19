@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Dumbbell, LogOut, LogIn, Shield, CalendarDays, Search } from 'lucide-react';
+import { Home, Search, Shield, Dumbbell, LogOut, LogIn } from 'lucide-react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -60,49 +60,79 @@ export default function CustomerLayout() {
   const onHome = location.pathname === '/';
 
   return (
-    <div className="customer-shell min-h-screen flex flex-col bg-[#f5f5f3]" data-route={onHome ? "home" : "inner"}>
-      {!onHome && (<header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/95 shadow-sm backdrop-blur-xl">
-        <div className="mx-auto flex min-h-[76px] max-w-7xl items-center justify-between gap-3 px-5 py-3 md:px-10">
-          <Link to="/" className="flex shrink-0 items-center gap-2">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-black shadow-lg shadow-black/10"><Dumbbell className="h-6 w-6 text-white" /></div>
-            <span className="text-lg font-extrabold tracking-tight text-neutral-900 sm:text-xl md:text-2xl">Sport<span className="text-neutral-500">Futsal</span></span>
+    <div className="min-h-screen flex flex-col bg-navy-800 customer-shell">
+      {!onHome && <header className="sticky top-0 z-40 bg-navy-900/90 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-5xl mx-auto px-4 min-h-16 py-2 flex items-center justify-between gap-2">
+          <Link to="/" className="flex items-center gap-2.5 shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center">
+              <Dumbbell className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-display font-bold text-lg text-white">
+              Sport<span className="text-brand-400">Futsal</span>
+            </span>
           </Link>
-          <nav className="hidden items-center gap-7 lg:flex">
-            <Link to="/" className={`text-sm font-semibold transition ${onHome ? 'text-neutral-800' : 'text-slate-600 hover:text-blue-700'}`}>Home</Link>
-            <a href="/#daftar-lapangan" className="text-sm font-semibold text-slate-600 transition hover:text-blue-700">Lapangan</a>
-            <a href="/#cara-booking" className="text-sm font-semibold text-slate-600 transition hover:text-blue-700">Cara Booking</a>
-            <Link to="/cek-booking" className={`text-sm font-semibold transition ${location.pathname === '/cek-booking' ? 'text-blue-700' : 'text-slate-600 hover:text-blue-700'}`}>Cek Booking</Link>
-          </nav>
-          <div className="flex items-center gap-2">
+          <nav className="flex items-center justify-end gap-1 flex-wrap">
             <ThemeToggle />
-            {isAdmin && <Link to="/admin/dashboard" className="hidden items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-neutral-100 hover:text-black sm:inline-flex"><Shield className="h-4 w-4" /> Admin</Link>}
+            <Link
+              to="/"
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
+                location.pathname === '/' ? 'bg-brand-500/20 text-brand-400' : 'text-white/60 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Home className="w-4 h-4" />
+              <span>Beranda</span>
+            </Link>
+            <Link
+              to="/cek-booking"
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
+                location.pathname === '/cek-booking' ? 'bg-brand-500/20 text-brand-400' : 'text-white/60 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Search className="w-4 h-4" />
+              <span className="hidden sm:inline">Cek Booking</span>
+            </Link>
+            {isAdmin && (
+              <Link
+                to="/admin/dashboard"
+                className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
+              >
+                <Shield className="w-4 h-4" />
+                <span>Admin</span>
+              </Link>
+            )}
             {session ? (
               <>
-                <span className="hidden whitespace-nowrap text-sm font-semibold text-blue-700 sm:inline">Hi, {displayName}</span>
-                <button type="button" onClick={() => void handleLogout()} className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-neutral-100"><LogOut className="h-4 w-4" /><span className="hidden sm:inline">Keluar</span></button>
+                <span className="px-2 py-2 text-sm font-semibold text-brand-300 whitespace-nowrap">
+                  Hi, {displayName}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => void handleLogout()}
+                  className="px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 text-white/60 hover:text-white hover:bg-white/5"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Keluar</span>
+                </button>
               </>
             ) : (
-              <Link to="/login" className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-black/10 transition hover:bg-neutral-700 md:px-6"><LogIn className="h-4 w-4" /><span>Login dengan Google</span></Link>
+              <Link
+                to="/login"
+                className="px-3 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5 bg-brand-500 text-white hover:bg-brand-400"
+              >
+                <LogIn className="w-4 h-4" />
+                <span>Login</span>
+              </Link>
             )}
-          </div>
+          </nav>
         </div>
-        <div className="mx-auto flex max-w-7xl items-center gap-5 overflow-x-auto px-5 pb-3 lg:hidden md:px-10">
-          <Link to="/" className="whitespace-nowrap text-xs font-semibold text-slate-600">Home</Link>
-          <a href="/#daftar-lapangan" className="whitespace-nowrap text-xs font-semibold text-slate-600">Lapangan</a>
-          <a href="/#cara-booking" className="whitespace-nowrap text-xs font-semibold text-slate-600">Cara Booking</a>
-          <Link to="/cek-booking" className="whitespace-nowrap text-xs font-semibold text-slate-600">Cek Booking</Link>
-          {isAdmin && <Link to="/admin/dashboard" className="whitespace-nowrap text-xs font-semibold text-blue-700">Admin</Link>}
-        </div>
-      </header>)}
+      </header>}
 
-      <main className="flex-1"><Outlet /></main>
+      <main className="flex-1">
+        <Outlet />
+      </main>
 
-      <footer className="border-t border-neutral-200 bg-white py-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 text-center md:flex-row md:px-10 md:text-left">
-          <Link to="/" className="flex items-center gap-2 font-extrabold text-neutral-900"> <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600"><Dumbbell className="h-4 w-4 text-white" /></span> Sport<span className="-ml-2 text-neutral-500">Futsal</span></Link>
-          <p className="text-sm text-slate-500">© 2026 SportFutsal · Sistem Booking Lapangan Futsal &amp; Badminton</p>
-          <Link to="/cek-booking" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:text-blue-900"><Search className="h-4 w-4" /> Cek Booking <CalendarDays className="h-4 w-4" /></Link>
-        </div>
+      <footer className="border-t border-white/10 py-6 text-center text-sm text-white/40">
+        <p>&copy; 2025 SportFutsal - Sistem Booking Lapangan Futsal &amp; Badminton</p>
       </footer>
     </div>
   );
