@@ -60,29 +60,29 @@ export default function CustomerLayout() {
   const onHome = location.pathname === '/';
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f3f8ff]">
-      {!onHome && (<header className="sticky top-0 z-40 border-b border-blue-100 bg-white/90 shadow-sm backdrop-blur-xl">
+    <div className="min-h-screen flex flex-col bg-[#f5f5f3]">
+      {!onHome && (<header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/95 shadow-sm backdrop-blur-xl">
         <div className="mx-auto flex min-h-[76px] max-w-7xl items-center justify-between gap-3 px-5 py-3 md:px-10">
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 shadow-lg shadow-blue-200"><Dumbbell className="h-6 w-6 text-white" /></div>
-            <span className="text-xl font-extrabold tracking-tight text-[#14264a] md:text-2xl">Sport<span className="text-[#1765e8]">Futsal</span></span>
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-black shadow-lg shadow-black/10"><Dumbbell className="h-6 w-6 text-white" /></div>
+            <span className="text-xl font-extrabold tracking-tight text-neutral-900 md:text-2xl">Sport<span className="text-neutral-500">Futsal</span></span>
           </Link>
           <nav className="hidden items-center gap-7 lg:flex">
-            <Link to="/" className={`text-sm font-semibold transition ${onHome ? 'text-blue-700' : 'text-slate-600 hover:text-blue-700'}`}>Home</Link>
+            <Link to="/" className={`text-sm font-semibold transition ${onHome ? 'text-neutral-800' : 'text-slate-600 hover:text-blue-700'}`}>Home</Link>
             <a href="/#daftar-lapangan" className="text-sm font-semibold text-slate-600 transition hover:text-blue-700">Lapangan</a>
             <a href="/#cara-booking" className="text-sm font-semibold text-slate-600 transition hover:text-blue-700">Cara Booking</a>
             <Link to="/cek-booking" className={`text-sm font-semibold transition ${location.pathname === '/cek-booking' ? 'text-blue-700' : 'text-slate-600 hover:text-blue-700'}`}>Cek Booking</Link>
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            {isAdmin && <Link to="/admin/dashboard" className="hidden items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700 sm:inline-flex"><Shield className="h-4 w-4" /> Admin</Link>}
+            {isAdmin && <Link to="/admin/dashboard" className="hidden items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-neutral-100 hover:text-black sm:inline-flex"><Shield className="h-4 w-4" /> Admin</Link>}
             {session ? (
               <>
                 <span className="hidden whitespace-nowrap text-sm font-semibold text-blue-700 sm:inline">Hi, {displayName}</span>
-                <button type="button" onClick={() => void handleLogout()} className="inline-flex items-center gap-2 rounded-full border border-blue-100 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-blue-50"><LogOut className="h-4 w-4" /><span className="hidden sm:inline">Keluar</span></button>
+                <button type="button" onClick={() => void handleLogout()} className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-neutral-100"><LogOut className="h-4 w-4" /><span className="hidden sm:inline">Keluar</span></button>
               </>
             ) : (
-              <Link to="/login" className="inline-flex items-center gap-2 rounded-full bg-[#1765e8] px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-blue-200 transition hover:bg-blue-700 md:px-6"><LogIn className="h-4 w-4" /><span>Login dengan Google</span></Link>
+              <Link to="/login" className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-black/10 transition hover:bg-neutral-700 md:px-6"><LogIn className="h-4 w-4" /><span>Login dengan Google</span></Link>
             )}
           </div>
         </div>
@@ -97,9 +97,9 @@ export default function CustomerLayout() {
 
       <main className="flex-1"><Outlet /></main>
 
-      <footer className="border-t border-blue-100 bg-white py-8">
+      <footer className="border-t border-neutral-200 bg-white py-8">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 text-center md:flex-row md:px-10 md:text-left">
-          <Link to="/" className="flex items-center gap-2 font-extrabold text-[#14264a]"> <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600"><Dumbbell className="h-4 w-4 text-white" /></span> Sport<span className="-ml-2 text-blue-600">Futsal</span></Link>
+          <Link to="/" className="flex items-center gap-2 font-extrabold text-neutral-900"> <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600"><Dumbbell className="h-4 w-4 text-white" /></span> Sport<span className="-ml-2 text-neutral-500">Futsal</span></Link>
           <p className="text-sm text-slate-500">© 2026 SportFutsal · Sistem Booking Lapangan Futsal &amp; Badminton</p>
           <Link to="/cek-booking" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:text-blue-900"><Search className="h-4 w-4" /> Cek Booking <CalendarDays className="h-4 w-4" /></Link>
         </div>
