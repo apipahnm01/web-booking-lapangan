@@ -68,7 +68,7 @@ export default function CustomerLayout() {
               <Dumbbell className="w-5 h-5 text-white" />
             </div>
             <span className="font-display font-bold text-lg text-white">
-              COURT<span className="text-brand-400">SPACE.</span>
+              Sport<span className="text-brand-400">Futsal</span>
             </span>
           </Link>
           <nav className="flex items-center justify-end gap-1 flex-wrap">
